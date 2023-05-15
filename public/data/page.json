@@ -2,12 +2,12 @@
   "components": [],
   "templates": [
     {
-      "id": 4,
+      "id": "4",
       "componentName": "Section1",
       "name": "Section 1"
     },
     {
-      "id": 5,
+      "id": "5",
       "componentName": "Section2",
       "name": "Section 2"
     }
