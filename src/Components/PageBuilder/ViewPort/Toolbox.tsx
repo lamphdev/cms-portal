@@ -10,6 +10,7 @@ import {
 
 const ToolboxDiv = styled.div<{ enabled: boolean; isDraggingOver?: boolean }>`
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  display: flex;
   ${props => (!props.enabled ? `width: 0;` : '')}
   ${props => (!props.enabled ? `opacity: 0;` : '')}
 `
@@ -44,9 +45,9 @@ export const Toolbox = (props: ToolboxProps) => {
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
             enabled={true}
-            className='toolbox transition h-full flex flex-col bg-white'
+            className='toolbox transition h-full flex flex-row bg-white w-full'
           >
-            <div className='flex flex-1 flex-col items-center pt-3'>
+            <div style={{ display: 'flex', flexDirection: 'row' }} className='flex flex-3 flex-row gap-3 items-center pt-3 w-full'>
               {props.templates &&
                 props.templates.map((template: any, templateIndex: number) => {
                   const draggableId = template.id + ''
@@ -58,15 +59,7 @@ export const Toolbox = (props: ToolboxProps) => {
                     >
                       {(provided, snapshot) => {
                         return (
-                          // <Tooltip
-                          //   title={
-                          //     template?.componentName
-                          //       ? template.componentName
-                          //       : 'Component chưa có tên'
-                          //   }
-                          //   placement='right'
-                          // >
-                          <div>
+                          <>
                             <Item
                               ref={provided.innerRef}
                               {...provided.draggableProps}
@@ -82,8 +75,7 @@ export const Toolbox = (props: ToolboxProps) => {
                                 {template.name}
                               </Clone>
                             )}
-                          </div>
-                          // </Tooltip>
+                          </>
                         )
                       }}
                     </Draggable>

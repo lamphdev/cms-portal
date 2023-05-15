@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { Carousel } from 'antd'
-import { useEffect, useState } from 'react'
+import { HTMLProps, useEffect, useState } from 'react'
 
 const CarouselWrapper = styled(Carousel)`
   > .slick-dots {
@@ -51,16 +51,16 @@ export const SliderImage = ({ onChange }: SliderImageProps) => {
             <img
               style={{
                 margin: 0,
-                height: '160px',
+                height: '260px',
                 color: '#fff',
-                lineHeight: '160px',
+                lineHeight: '260px',
                 textAlign: 'center',
                 background: '#364d79'
               }}
               key={index}
               src={'/images/Viettel_logo.png'}
               width={226}
-              height={160}
+              height={260}
               alt={index + ''}
             />
           ))
