@@ -53,7 +53,7 @@ body {
 }
 
 .admin-layout {
-  >div:nth-child(2) {
+  > div:nth-child(2) {
     @media screen and (max-width: 496px) {
       flex-wrap: wrap;
       .left-sidebar-menu {
@@ -114,7 +114,7 @@ body {
   left: 0px;
   top: 52px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 0px;
 
@@ -127,7 +127,7 @@ body {
       .left-sidebar-menu-body-list-item {
         padding: 10px 23px;
 
-        >div {
+        > div {
           gap: 10px;
 
           div:nth-child(2) {
@@ -144,22 +144,22 @@ body {
   }
 }
 
-
 .admin-layout-main {
   padding: 11px;
 }
-
-
-
 
 input {
   height: 44px;
   padding: 10px 12px;
   box-sizing: border-box;
-  border: 1px solid #D0D2D3;
+  border: 1px solid #d0d2d3;
   border-radius: 4px;
 }
 
 input[disabled] {
   background-color: rgba(120, 120, 120, 0.15);
+}
+
+div[data-rbd-droppable-id] > div {
+  display: block;
 }
