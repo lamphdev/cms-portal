@@ -1,0 +1,24 @@
+.cms-component {
+    &.component-date-input {
+        width: $input-width;
+        label {
+            font-size: 16px;
+            font-weight: 700px;
+        }
+
+        input {
+            height: 32px;
+            border-radius: 5px;
+        }
+    }
+
+    &.component-select-input {
+        width: $input-width;
+        select {
+            border: 1px solid #D0D2D3;
+            padding: 4px 6px;
+            border-radius: 5px;
+            height: 32px;
+        }
+    }
+}
