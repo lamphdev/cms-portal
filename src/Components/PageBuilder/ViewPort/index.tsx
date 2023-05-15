@@ -32,6 +32,7 @@ const ContainerDiv = styled.div`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   padding: 33px 23px;
+  flex-shrink: 0;
 `
 const ToolboxDiv = styled.div<{ enabled: boolean; isDraggingOver: boolean }>`
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
@@ -117,6 +118,10 @@ export const Viewport: React.FC<{
   const [mapComponents, setMapComponent] = useState<any>({
     droppableId: []
   })
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [hoverIndex, setHoverIndex] = useState(-1);
+
+
   const loadData = async () => {
     let result_page = await fetch('/data/page.json')
     let body = await result_page.json()
@@ -138,20 +143,20 @@ export const Viewport: React.FC<{
     }
   }, [mapComponents])
 
-  useEffect(() => {
-    if (!window) {
-      return
-    }
-    window.requestAnimationFrame(() => {
-      // Notify doc site
-      window.parent.postMessage(
-        {
-          LANDING_PAGE_LOADED: true
-        },
-        '*'
-      )
-    })
-  }, [])
+  // useEffect(() => {
+  //   if (!window) {
+  //     return
+  //   }
+  //   window.requestAnimationFrame(() => {
+  //     // Notify doc site
+  //     window.parent.postMessage(
+  //       {
+  //         LANDING_PAGE_LOADED: true
+  //       },
+  //       '*'
+  //     )
+  //   })
+  // }, [])
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
@@ -160,6 +165,7 @@ export const Viewport: React.FC<{
     if (!destination) {
       return
     }
+    setActiveIndex(-1);
     switch (source.droppableId) {
       case destination.droppableId: {
         if (destination.droppableId == 'droppableId')
@@ -227,6 +233,18 @@ export const Viewport: React.FC<{
                                   (component: any, index: number) => {
                                     return (
                                       <Section
+                                        onClick={() => {
+                                          setActiveIndex(index);
+                                        }}
+                                        onMouseOver={() => {
+                                          console.log('a')
+                                          setHoverIndex(index);
+                                        }}
+                                        onMouseLeave={() => {
+                                          console.log('b')
+                                          setHoverIndex(-1);
+                                        }}
+                                        active={activeIndex === index || hoverIndex === index}
                                         onChange={(value: any) => {
                                           if (
                                             !mapComponents[droppableId][index]
@@ -251,6 +269,7 @@ export const Viewport: React.FC<{
                                             1
                                           )
                                           setMapComponent(newListComponent)
+                                          setActiveIndex(-1);
                                         }}
                                       ></Section>
                                     )
