@@ -1,7 +1,12 @@
 import styled from '@emotion/styled'
 import { Carousel } from 'antd'
-import { HTMLProps, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
+const Content = styled.div`
+  > .ant-carousel {
+      width: 760px;
+  }
+`;
 const CarouselWrapper = styled(Carousel)`
   > .slick-dots {
     margin-bottom: 5px;
@@ -40,31 +45,33 @@ export const SliderImage = ({ onChange }: SliderImageProps) => {
     }
   }, [images])
   return (
-    <CarouselWrapper
-      className='slider-image'
-      dots={{
-        className: 'dotClass'
-      }}
-    >
-      {images && images?.length > 0
-        ? images.map((image: any, index: number) => (
+    <Content>
+      <CarouselWrapper
+        style={{
+
+        }}
+        dots={{
+          className: 'dotClass'
+        }}
+      >
+        {images && images?.length > 0
+          ? images.map((image: any, index: number) => (
             <img
               style={{
                 margin: 0,
                 height: '260px',
                 color: '#fff',
-                lineHeight: '260px',
+                lineHeight: '500px',
                 textAlign: 'center',
                 background: '#364d79'
               }}
               key={index}
               src={'/images/Viettel_logo.png'}
-              width={226}
-              height={260}
               alt={index + ''}
             />
           ))
-        : null}
-    </CarouselWrapper>
+          : null}
+      </CarouselWrapper>
+    </Content>
   )
 }

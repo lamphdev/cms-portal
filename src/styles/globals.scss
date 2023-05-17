@@ -170,3 +170,6 @@ div[data-rbd-droppable-id] > div {
   display: block;
   border: none;
 }
+input[disabled] {
+  background-color: rgba(120, 120, 120, 0.15);
+}

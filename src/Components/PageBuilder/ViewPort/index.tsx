@@ -26,20 +26,13 @@ const Notice = styled.div`
 `
 
 const ContainerDiv = styled.div`
-  width: 794px;
-  height: 600px;
+  height: 66vh;
   border: 1px solid #000000;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  padding: 33px 23px;
-  flex-shrink: 0;
+  padding: 6px 23px;
+  margin-right: 256px;
 `
-const ToolboxDiv = styled.div<{ enabled: boolean; isDraggingOver: boolean }>`
-  transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  ${props => (!props.enabled ? `width: 0;` : '')}
-  ${props => (!props.enabled ? `opacity: 0;` : '')}
-`
-const grid = 20
 
 const getListStyle = (isDraggingOver: boolean) => {
   return {
@@ -128,7 +121,7 @@ export const Viewport: React.FC<{
     return body
   }
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       const result_components = await loadData()
       setMapComponent({
         droppableId: result_components.components
@@ -143,20 +136,20 @@ export const Viewport: React.FC<{
     }
   }, [mapComponents])
 
-  // useEffect(() => {
-  //   if (!window) {
-  //     return
-  //   }
-  //   window.requestAnimationFrame(() => {
-  //     // Notify doc site
-  //     window.parent.postMessage(
-  //       {
-  //         LANDING_PAGE_LOADED: true
-  //       },
-  //       '*'
-  //     )
-  //   })
-  // }, [])
+  useEffect(() => {
+    if (!window) {
+      return
+    }
+    window.requestAnimationFrame(() => {
+      // Notify doc site
+      window.parent.postMessage(
+        {
+          LANDING_PAGE_LOADED: true
+        },
+        '*'
+      )
+    })
+  }, [])
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
@@ -206,89 +199,84 @@ export const Viewport: React.FC<{
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className='viewport'>
-        <div
-          className={['flex h-full overflow-hidden flex-row w-full fixed'].join(
-            ' '
-          )}
-        >
-          <ContainerDiv>
-            <div className='page-container flex flex-1 h-full flex-col'>
-              {mapComponents &&
-                Object.keys(mapComponents).map(
-                  (droppableId: any, i: number) => {
-                    return (
-                      <Droppable droppableId={droppableId} key={i}>
-                        {(
-                          provided: DroppableProvided,
-                          snapshot: DroppableStateSnapshot
-                        ) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                            style={getListStyle(snapshot.isDraggingOver)}
-                          >
-                            {mapComponents[droppableId].length > 0
-                              ? mapComponents[droppableId].map(
-                                  (component: any, index: number) => {
-                                    return (
-                                      <Section
-                                        onClick={() => {
-                                          setActiveIndex(index);
-                                        }}
-                                        onMouseOver={() => {
-                                          console.log('a')
-                                          setHoverIndex(index);
-                                        }}
-                                        onMouseLeave={() => {
-                                          console.log('b')
-                                          setHoverIndex(-1);
-                                        }}
-                                        active={activeIndex === index || hoverIndex === index}
-                                        onChange={(value: any) => {
-                                          if (
-                                            !mapComponents[droppableId][index]
-                                          ) {
-                                            mapComponents[droppableId][index] =
-                                              { details: null }
-                                          }
-                                          mapComponents[droppableId][
-                                            index
-                                          ].details = value
-                                        }}
-                                        key={index}
-                                        item={component}
-                                        index={index}
-                                        onDelete={(index: number) => {
-                                          const newListComponent: any[] =
-                                            JSON.parse(
-                                              JSON.stringify(mapComponents)
-                                            )
-                                          newListComponent[droppableId].splice(
-                                            index,
-                                            1
-                                          )
-                                          setMapComponent(newListComponent)
-                                          setActiveIndex(-1);
-                                        }}
-                                      ></Section>
+      <ContainerDiv>
+        <div className='page-container flex flex-1 h-full flex-col overflow-x-auto pt-6'>
+          {children}
+          {mapComponents &&
+            Object.keys(mapComponents).map(
+              (droppableId: any, i: number) => {
+                return (
+                  <Droppable droppableId={droppableId} key={i}>
+                    {(
+                      provided: DroppableProvided,
+                      snapshot: DroppableStateSnapshot
+                    ) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        style={getListStyle(snapshot.isDraggingOver)}
+                      >
+                        {mapComponents[droppableId].length > 0
+                          ? mapComponents[droppableId].map(
+                            (component: any, index: number) => {
+                              return (
+                                <Section
+                                  onClick={() => {
+                                    setActiveIndex(index);
+                                  }}
+                                  onMouseOver={() => {
+                                    console.log('a')
+                                    setHoverIndex(index);
+                                  }}
+                                  onMouseLeave={() => {
+                                    console.log('b')
+                                    setHoverIndex(-1);
+                                  }}
+                                  active={activeIndex === index || hoverIndex === index}
+                                  onChange={(value: any) => {
+                                    if (
+                                      !mapComponents[droppableId][index]
+                                    ) {
+                                      mapComponents[droppableId][index] =
+                                        { details: null }
+                                    }
+                                    mapComponents[droppableId][
+                                      index
+                                    ].details = value
+                                  }}
+                                  key={index}
+                                  item={component}
+                                  index={index}
+                                  onDelete={(index: number) => {
+                                    const newListComponent: any[] =
+                                      JSON.parse(
+                                        JSON.stringify(mapComponents)
+                                      )
+                                    newListComponent[droppableId].splice(
+                                      index,
+                                      1
                                     )
-                                  }
-                                )
-                              : provided.placeholder && (
-                                  <Notice>THẢ COMPONENT TẠI ĐÂY</Notice>
-                                )}
-                          </div>
-                        )}
-                      </Droppable>
-                    )
-                  }
-                )}
-            </div>
-          </ContainerDiv>
-          <Toolbox templates={templates}></Toolbox>
+                                    setMapComponent(newListComponent)
+                                    setActiveIndex(-1);
+                                  }}
+                                >
+                                </Section>
+                              )
+                            }
+                          )
+                          : provided.placeholder && (
+                            <Notice>THẢ COMPONENT TẠI ĐÂY</Notice>
+                          )}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                )
+              }
+            )}
         </div>
-      </div>
+      </ContainerDiv>
+      <Toolbox templates={templates}></Toolbox>
     </DragDropContext>
   )
 }

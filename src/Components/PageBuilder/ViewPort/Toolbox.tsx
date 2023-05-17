@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 
 import { Tooltip } from '@mui/material'
+import React from 'react';
 import {
   Draggable,
   Droppable,
@@ -10,13 +11,14 @@ import {
 
 const ToolboxDiv = styled.div<{ enabled: boolean; isDraggingOver?: boolean }>`
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  display: flex;
-  ${props => (!props.enabled ? `width: 0;` : '')}
-  ${props => (!props.enabled ? `opacity: 0;` : '')}
+  position: absolute;
+  ${props => (!props.enabled ? `width: 0;` : ';')}
+  ${props => (!props.enabled ? `opacity: 0;` : ';')}
 `
 
 const Item = styled.div<{ isDragging?: boolean }>`
-  display: flex;
+  width: 95px;
+  height: 57px;
   user-select: none;
   padding: 0.5rem;
   margin: 0 0 0.5rem 0;
@@ -42,12 +44,13 @@ export const Toolbox = (props: ToolboxProps) => {
         return (
           <ToolboxDiv
             ref={provided.innerRef}
-            {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
             enabled={true}
-            className='toolbox transition h-full flex flex-row bg-white w-full'
+            className='toolbox transition bg-white w-full'
           >
-            <div style={{ display: 'flex', flexDirection: 'row' }} className='flex flex-3 flex-row gap-3 items-center pt-3 w-full'>
+            <div style={{
+              display: 'flex'
+            }} className='transition flex bg-white w-full'>
               {props.templates &&
                 props.templates.map((template: any, templateIndex: number) => {
                   const draggableId = template.id + ''
@@ -59,23 +62,25 @@ export const Toolbox = (props: ToolboxProps) => {
                     >
                       {(provided, snapshot) => {
                         return (
-                          <>
-                            <Item
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={provided.draggableProps.style}
-                              isDragging={snapshot.isDragging}
-                              className='m-2 pb-2 cursor-pointer block'
-                            >
-                              {template.name}
-                            </Item>
-                            {snapshot.isDragging && (
-                              <Clone isDragging={snapshot.isDragging}>
+                          <React.Fragment>
+                            <div style={{width: '95px', height: '57px'}}>
+                              <Item
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={provided.draggableProps.style}
+                                isDragging={snapshot.isDragging}
+                                className='m-2 pb-2 cursor-pointer block'
+                              >
                                 {template.name}
-                              </Clone>
-                            )}
-                          </>
+                              </Item>
+                              {snapshot.isDragging && (
+                                <Clone isDragging={snapshot.isDragging}>
+                                  {template.name}
+                                </Clone>
+                              )}
+                            </div>
+                          </React.Fragment>
                         )
                       }}
                     </Draggable>

@@ -36,7 +36,7 @@ const SectionStyle = styled.div<SectionStyleProps>(({ isDragging, width, active 
   '.component': {
     border: active ? `0.5px solid #EF0032` : 'unset'
   },
-  'div[data-rbd-droppable-id] > div' : {
+  'div[data-rbd-droppable-id] > div': {
     display: 'block',
     border: 'none'
   }
@@ -45,7 +45,7 @@ const SectionStyle = styled.div<SectionStyleProps>(({ isDragging, width, active 
 const getRandom = () => {
   return 'item-' + Math.random()
 }
-const Handle = styled.div<{ active: boolean }>(({active}) => ({
+const Handle = styled.div<{ active: boolean }>(({ active }) => ({
   alignItems: 'center',
   alignContent: 'center',
   usercelect: 'none',
@@ -112,11 +112,9 @@ export const Section = (props: any) => {
                 alt={''}
               />
             </Handle>
-            <div className='component'>
-              {item ? (
-                <SliderImage onChange={value => onChange(value, 'SliderImage')} />
-              ) : null}
-            </div>
+            {item ? (
+              <SliderImage onChange={value => onChange(value, 'SliderImage')} />
+            ) : null}
             {/* {children} */}
           </SectionStyle>
         </>
