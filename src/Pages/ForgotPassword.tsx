@@ -42,8 +42,18 @@ const StyledPage = styled('div')(({ theme }: any) => ({
 
     color: '#252929'
   },
+  '.labelRequire:after': {
+    content: '"*"',
+    color: 'red',
+    marginLeft: '.25rem'
+  },
   '.control': {
-    minWidth: '350px'
+    minWidth: '350px',
+    height: '44px',
+    border: '1px solid #D0D2D3',
+    borderRadius: '4px',
+    paddingLeft: '12px',
+    paddingRight: '12px'
   },
   '.control:focus': {
     outline: 'none'
@@ -87,10 +97,10 @@ const StyledPage = styled('div')(({ theme }: any) => ({
 }))
 
 const StyledIconButton = styled('button')`
-    border: none;
-    padding: .5rem 1rem;
-    background-color: transparent;
-    cursor: pointer;
+  border: none;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  cursor: pointer;
 `
 
 export function ForgotPasswordPage () {
