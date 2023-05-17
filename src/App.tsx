@@ -5,11 +5,14 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './router-config'
 import { ThemeProvider } from '@emotion/react'
 import { theme } from './theme'
+import { ConfigProvider } from 'antd'
 
 function App () {
   return (
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router}></RouterProvider>
+      <ConfigProvider theme={{}}>
+        <RouterProvider router={router}></RouterProvider>
+      </ConfigProvider>
     </ThemeProvider>
   )
 }

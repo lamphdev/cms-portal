@@ -1,5 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { HomePage, ManageIndexPage, PageDetail } from './Pages'
+import {
+  HomePage,
+  ManageIndexPage,
+  PageDetail,
+  UserListPage,
+  UserDetailPage
+} from './Pages'
 import { ManageLayout } from './Layouts'
 import { LoginPage } from './Pages/Login'
 import { ForgotPasswordPage } from './Pages/ForgotPassword'
@@ -33,6 +39,14 @@ export const router = createBrowserRouter([
       {
         path: 'pages/:id',
         element: <PageDetail />
+      },
+      {
+        path: 'users',
+        element: <UserListPage />
+      },
+      {
+        path: 'users/:id',
+        element: <UserDetailPage />
       }
     ]
   }
