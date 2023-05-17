@@ -148,17 +148,17 @@ body {
   padding: 11px;
 }
 
-input {
-  height: 44px;
-  padding: 10px 12px;
-  box-sizing: border-box;
-  border: 1px solid #d0d2d3;
-  border-radius: 4px;
-}
+// input {
+//   height: 44px;
+//   padding: 10px 12px;
+//   box-sizing: border-box;
+//   border: 1px solid #d0d2d3;
+//   border-radius: 4px;
+// }
 
-input[disabled] {
-  background-color: rgba(120, 120, 120, 0.15);
-}
+// input[disabled] {
+//   background-color: rgba(120, 120, 120, 0.15);
+// }
 
 div[data-rbd-droppable-id] > div {
   display: block;

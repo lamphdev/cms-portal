@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { HeaderLogo } from '../Components'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useCountDown } from '../Hooks'
 
 const StyledPage = styled('div')(({ theme }: any) => ({
