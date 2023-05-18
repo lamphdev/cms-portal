@@ -4,12 +4,6 @@ import { Input, Select } from 'antd'
 import { SearchOutlined, FileExcelOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 
-const StyledGrid = styled('div')(() => ({
-  display: 'grid',
-  gap: '2rem',
-  gridTemplateColumns: 'repeat(auto-fit, min-max(80%, 1fr))'
-}))
-
 const Label = styled('label')(() => ({
   fontWeight: 600,
   fontSize: '14px',
@@ -37,12 +31,18 @@ interface Props {
 }
 
 export function UserSearchForm (props: Props) {
-  const { control, handleSubmit } = useForm()
+  const { control, getValues, handleSubmit } = useForm()
   const { onSearch, onExport } = props
 
   const onSubmit = (data: any) => {
     if (onSearch) {
       onSearch(data)
+    }
+  }
+
+  const onExportClick = () => {
+    if (onExport) {
+      onExport(getValues())
     }
   }
 
@@ -138,7 +138,7 @@ export function UserSearchForm (props: Props) {
           <SearchOutlined />
           Tìm kiếm
         </Button>
-        <Button type='button'>
+        <Button type='button' onClick={onExportClick}>
           <FileExcelOutlined />
           Xuất Excel
         </Button>

@@ -1,15 +1,43 @@
 import styled from '@emotion/styled'
 import { Droppable } from 'react-beautiful-dnd'
+import { pageBuilderContext } from '.'
+import { ComponentView } from './ComponentView'
+import { useContext } from 'react'
+import { ContentDisplay } from './config'
 
-const StyledDropable = styled('div')(() => ({
+const StyledDropable = styled('div')<{ dragOver: boolean }>(({ dragOver }) => ({
   minHeight: '200px',
-  
+  minWidth: '600px',
+  maxWidth: '100%',
+  width: '100%',
+  border: dragOver ? '1px dotted gray' : '',
+  backgroundColor: 'lightcyan'
 }))
 
-export function Preview () {
+interface PreviewProps {
+  className?: string
+  components?: ContentDisplay[]
+}
+
+export function Preview (props: PreviewProps) {
+  const { components } = useContext(pageBuilderContext)
+
+  console.log(components);
   return (
-    <Droppable droppableId='pageView'>
-      {(provided, snapshot) => <div ref={provided.innerRef}></div>}
+    <Droppable droppableId='preview'>
+      {(provided, snapshot) => (
+        <StyledDropable
+          className={props.className}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          dragOver={snapshot.isDraggingOver}
+        >
+          {components.map(component => (
+            <ComponentView key={component.id} component={component} />
+          ))}
+          {provided.placeholder}
+        </StyledDropable>
+      )}
     </Droppable>
   )
 }

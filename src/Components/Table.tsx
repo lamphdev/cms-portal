@@ -70,13 +70,13 @@ export function Table (props: TableProps) {
     if (onSort) {
       onSort(sort)
     }
-  }, [sort])
+  }, [sort, onSort])
 
   useEffect(() => {
     if (onSelect) {
       onSelect(selected)
     }
-  }, [])
+  }, [selected, onSelect])
 
   return (
     <tableContext.Provider value={{ sort, setSort, selected, setSelected }}>
@@ -106,7 +106,7 @@ export function TH (props: ThProps) {
     if (!direction) {
       return null
     }
-    return direction == 'asc' ? <ArrowUpOutlined /> : <ArrowDownOutlined />
+    return direction === 'asc' ? <ArrowUpOutlined /> : <ArrowDownOutlined />
   }, [sortable, sort])
 
   const toggleSort = () => {
