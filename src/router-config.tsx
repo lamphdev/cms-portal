@@ -4,7 +4,9 @@ import {
   ManageIndexPage,
   PageDetail,
   UserListPage,
-  UserDetailPage
+  UserDetailPage,
+  PostListPage,
+  CreatePostPage
 } from './Pages'
 import { ManageLayout } from './Layouts'
 import { LoginPage } from './Pages/Login'
@@ -47,6 +49,14 @@ export const router = createBrowserRouter([
       {
         path: 'users/:id',
         element: <UserDetailPage />
+      },
+      {
+        path: 'posts',
+        element: <PostListPage />
+      },
+      {
+        path: 'posts/create',
+        element: <CreatePostPage />
       }
     ]
   }

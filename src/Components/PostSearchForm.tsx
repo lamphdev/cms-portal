@@ -26,18 +26,18 @@ const Button = styled('button')(({ theme }: any) => ({
 
 const Grid = styled('div')(() => ({
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
   gap: '1rem'
 }))
 
 interface Props {
   onSearch?: (data: any) => void
-  onExport?: (data: any) => void
+  onCreate?: () => void
 }
 
-export function UserSearchForm (props: Props) {
-  const { control, getValues, handleSubmit } = useForm()
-  const { onSearch, onExport } = props
+export function PostSearchForm (props: Props) {
+  const { control, handleSubmit } = useForm()
+  const { onSearch, onCreate } = props
 
   const onSubmit = (data: any) => {
     if (onSearch) {
@@ -45,9 +45,9 @@ export function UserSearchForm (props: Props) {
     }
   }
 
-  const onExportClick = () => {
-    if (onExport) {
-      onExport(getValues())
+  const onCreateClick = () => {
+    if (onCreate) {
+      onCreate()
     }
   }
 
@@ -81,8 +81,8 @@ export function UserSearchForm (props: Props) {
             name='name'
             render={({ field }) => (
               <div>
-                <Label htmlFor=''>Họ tên</Label>
-                <Input placeholder='Nhập họ tên user' {...field} />
+                <Label htmlFor=''>Tên tin tức</Label>
+                <Input placeholder='Nhập tên tin tức' {...field} />
               </div>
             )}
           />
@@ -92,46 +92,13 @@ export function UserSearchForm (props: Props) {
             name='area'
             render={({ field }) => (
               <div>
-                <Label htmlFor=''>Tỉnh/Thành phố</Label>
+                <Label htmlFor=''>Trạng thái</Label>
                 <Select
                   {...field}
                   className='w-full'
-                  placeholder='Chọn Tỉnh/Thành phố'
+                  placeholder='Chọn trạng thái'
                   options={[{ label: 'Label', value: 'label1' }]}
                 />
-              </div>
-            )}
-          />
-
-          <Controller
-            control={control}
-            name='taxCode'
-            render={({ field }) => (
-              <div>
-                <Label htmlFor=''>Mã số thuế</Label>
-                <Input placeholder='Nhập mã số thuế' {...field} />
-              </div>
-            )}
-          />
-
-          <Controller
-            control={control}
-            name='phone'
-            render={({ field }) => (
-              <div>
-                <Label htmlFor=''>Số điện thoại</Label>
-                <Input placeholder='Nhập số điện thoại' {...field} />
-              </div>
-            )}
-          />
-
-          <Controller
-            control={control}
-            name='company'
-            render={({ field }) => (
-              <div>
-                <Label htmlFor=''>Tên công ty</Label>
-                <Input placeholder='Nhập tên công ty' {...field} />
               </div>
             )}
           />
@@ -143,9 +110,9 @@ export function UserSearchForm (props: Props) {
           <SearchOutlined />
           Tìm kiếm
         </Button>
-        <Button type='button' onClick={onExportClick}>
+        <Button type='button' onClick={onCreateClick}>
           <FileExcelOutlined />
-          Xuất Excel
+          Tạo mới
         </Button>
       </div>
     </form>

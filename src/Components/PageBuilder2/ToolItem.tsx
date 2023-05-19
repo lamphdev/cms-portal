@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
 export function ToolItem (props: {

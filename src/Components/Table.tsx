@@ -42,14 +42,14 @@ const StyledTable = styled('table')(({ theme }: any) => ({
   boxShadow: '2px 0px 10px rgba(0, 0, 0, 0.1)',
   borderRadius: theme.borderRadius,
   overflow: 'hidden',
-  border: '1px solid black',
+  borderSpacing: 0,
   thead: {
     width: '100%',
     fontWeight: 600,
     fontSize: '14px',
     backgroundColor: theme.colors.primary,
     'td, th': {
-      padding: '.5rem',
+      height: '34px',
       cursor: 'pointer',
       userSelect: 'none'
     }
