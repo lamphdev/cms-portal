@@ -99,6 +99,12 @@ export function ResetScreen (props: Props) {
             required: {
               value: true,
               message: 'confirmPass.required'
+            },
+            validate: (field, form) => {
+              if (field !== form.password) {
+                return 'confirmPass.notMatch'
+              }
+              return true
             }
           }}
           render={({ field, fieldState }) => (

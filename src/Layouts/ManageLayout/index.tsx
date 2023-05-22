@@ -5,7 +5,8 @@ import styled from '@emotion/styled'
 
 const StyledLayout = styled('div')(() => ({
   width: '100%',
-  height: '100vh'
+  height: '100vh',
+  overflow: 'hidden'
 }))
 
 const StyledFlex = styled('div')(() => ({
@@ -17,7 +18,9 @@ const StyledFlex = styled('div')(() => ({
 
 const ContentWrapper = styled('main')(() => ({
   flexGrow: 1,
-  padding: '1rem'
+  padding: '1rem',
+  overflowY: 'auto',
+  overflowX: 'hidden'
 }))
 
 export function ManageLayout () {
