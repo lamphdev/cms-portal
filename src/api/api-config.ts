@@ -4,7 +4,6 @@ const http = Axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL
 })
 
-console.log(process.env)
 
 const TOKEN_FIELD = 'access_token'
 const REFRESH_TOKEN_FIELD = 'refresh_token'

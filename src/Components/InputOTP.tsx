@@ -1,13 +1,17 @@
 import styled from '@emotion/styled'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 interface Props {
   length: number
+  value?: string
+  onChange?: (val: string) => void
+  onBlur?: () => void
+  onFocus?: () => void
 }
 
 export const InputOTP = React.forwardRef<any, Props>((props, ref) => {
-  const { length } = props
-  const [value, setValue] = useState('')
+  const { length, value: defaultInput, onChange, onBlur, onFocus } = props
+  const [value, setValue] = useState(defaultInput || '')
 
   const onKeyDown = (e: any) => {
     e.preventDefault()
@@ -27,6 +31,12 @@ export const InputOTP = React.forwardRef<any, Props>((props, ref) => {
     setValue(value + key)
   }
 
+  useEffect(() => {
+    if (onChange) {
+      onChange(value)
+    }
+  }, [value])
+
   const display = useMemo(() => {
     return Array.from(Array(length).keys())
       .map((key, idx) => {
@@ -44,6 +54,8 @@ export const InputOTP = React.forwardRef<any, Props>((props, ref) => {
         ref={ref}
         type='text'
         value={display}
+        onFocus={onFocus}
+        onBlur={onBlur}
         onChange={() => {}}
         onKeyDown={onKeyDown}
       />
