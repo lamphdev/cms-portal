@@ -1,10 +1,12 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import {
   HomePage,
   ManageIndexPage,
   PageDetail,
   UserListPage,
-  UserDetailPage
+  UserDetailPage,
+  PostListPage,
+  CreatePostPage
 } from './Pages'
 import { ManageLayout } from './Layouts'
 import { LoginPage } from './Pages/Login'
@@ -14,7 +16,8 @@ import { PageList } from './Pages/PageManagement/PageList'
 export const router = createBrowserRouter([
   {
     path: '',
-    element: <HomePage />
+    // element: <HomePage />
+    element: <Navigate to={'/manage'} />
   },
   {
     path: 'login',
@@ -47,6 +50,14 @@ export const router = createBrowserRouter([
       {
         path: 'users/:id',
         element: <UserDetailPage />
+      },
+      {
+        path: 'posts',
+        element: <PostListPage />
+      },
+      {
+        path: 'posts/create',
+        element: <CreatePostPage />
       }
     ]
   }

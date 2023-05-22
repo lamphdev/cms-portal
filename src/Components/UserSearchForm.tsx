@@ -3,12 +3,7 @@ import { Paper } from './Paper'
 import { Input, Select } from 'antd'
 import { SearchOutlined, FileExcelOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
-
-const StyledGrid = styled('div')(() => ({
-  display: 'grid',
-  gap: '2rem',
-  gridTemplateColumns: 'repeat(auto-fit, min-max(80%, 1fr))'
-}))
+import { Button } from './Button'
 
 const Label = styled('label')(() => ({
   fontWeight: 600,
@@ -18,11 +13,16 @@ const Label = styled('label')(() => ({
   fontStyle: 'normal'
 }))
 
-const Button = styled('button')(({ theme }: any) => ({
-  backgroundColor: '#EF0032',
-  padding: '.5rem 1rem',
-  color: '#fff',
-  borderRadius: theme.borderRadius
+const StyledButton = styled(Button)(({ theme }: any) => ({
+  // border: 0,
+  // backgroundColor: '#EF0032',
+  // padding: '.5rem 1rem',
+  // color: '#fff',
+  // borderRadius: theme.borderRadius,
+  // cursor: 'pointer',
+  span: {
+    marginRight: '.5rem'
+  }
 }))
 
 const Grid = styled('div')(() => ({
@@ -37,12 +37,18 @@ interface Props {
 }
 
 export function UserSearchForm (props: Props) {
-  const { control, handleSubmit } = useForm()
+  const { control, getValues, handleSubmit } = useForm()
   const { onSearch, onExport } = props
 
   const onSubmit = (data: any) => {
     if (onSearch) {
       onSearch(data)
+    }
+  }
+
+  const onExportClick = () => {
+    if (onExport) {
+      onExport(getValues())
     }
   }
 
@@ -134,14 +140,14 @@ export function UserSearchForm (props: Props) {
       </Paper>
 
       <div className='flex justify-end py-8 gap-4'>
-        <Button type='submit'>
+        <StyledButton type='submit'>
           <SearchOutlined />
           Tìm kiếm
-        </Button>
-        <Button type='button'>
+        </StyledButton>
+        <StyledButton type='button' onClick={onExportClick}>
           <FileExcelOutlined />
           Xuất Excel
-        </Button>
+        </StyledButton>
       </div>
     </form>
   )

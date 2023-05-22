@@ -42,14 +42,14 @@ const StyledTable = styled('table')(({ theme }: any) => ({
   boxShadow: '2px 0px 10px rgba(0, 0, 0, 0.1)',
   borderRadius: theme.borderRadius,
   overflow: 'hidden',
-  border: '1px solid black',
+  borderSpacing: 0,
   thead: {
     width: '100%',
     fontWeight: 600,
     fontSize: '14px',
     backgroundColor: theme.colors.primary,
     'td, th': {
-      padding: '.5rem',
+      height: '34px',
       cursor: 'pointer',
       userSelect: 'none'
     }
@@ -70,13 +70,13 @@ export function Table (props: TableProps) {
     if (onSort) {
       onSort(sort)
     }
-  }, [sort])
+  }, [sort, onSort])
 
   useEffect(() => {
     if (onSelect) {
       onSelect(selected)
     }
-  }, [])
+  }, [selected, onSelect])
 
   return (
     <tableContext.Provider value={{ sort, setSort, selected, setSelected }}>
@@ -106,7 +106,7 @@ export function TH (props: ThProps) {
     if (!direction) {
       return null
     }
-    return direction == 'asc' ? <ArrowUpOutlined /> : <ArrowDownOutlined />
+    return direction === 'asc' ? <ArrowUpOutlined /> : <ArrowDownOutlined />
   }, [sortable, sort])
 
   const toggleSort = () => {

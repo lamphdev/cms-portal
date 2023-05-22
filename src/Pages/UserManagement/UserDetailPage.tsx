@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { Paper } from '../../Components/Paper'
 import { useNavigate } from 'react-router-dom'
 
 const BackButton = styled('button')(() => ({
