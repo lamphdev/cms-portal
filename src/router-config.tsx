@@ -1,6 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import {
-  HomePage,
   ManageIndexPage,
   PageDetail,
   UserListPage,

@@ -1,7 +1,10 @@
 import styled from '@emotion/styled'
-import { HeaderLogo } from '../Components'
+import { Button, HeaderLogo, InputOTP } from '../Components'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCountDown } from '../Hooks'
+import { Input } from 'antd'
+import { useState } from 'react'
+import React from 'react'
 
 const StyledPage = styled('div')(({ theme }: any) => ({
   width: '100%',
@@ -26,7 +29,7 @@ const StyledPage = styled('div')(({ theme }: any) => ({
     marginBottom: '43px',
     textAlign: 'center',
 
-    // font-family: 'Inter';
+    fontFamily: 'Inter',
     fontStyle: 'normal',
     fontWeight: 600,
     fontSize: '24px',
@@ -106,10 +109,14 @@ const StyledIconButton = styled('button')`
 export function ForgotPasswordPage () {
   const navigate = useNavigate()
   const countdown = useCountDown(10)
+  const [otpSended, setOtpSended] = useState(false)
 
   const sendOtp = () => {
+    console.log('lsfjk  ')
+    setOtpSended(true)
     countdown.start()
   }
+
   return (
     <StyledPage>
       <div className='forgotFrame'>
@@ -120,14 +127,16 @@ export function ForgotPasswordPage () {
           <StyledIconButton onClick={() => navigate(-1)}>
             <img src='/icons/left-arrow.svg' alt='' />
           </StyledIconButton>
+
           <h2 className='forgotTitle'>Quên mật khẩu</h2>
           <form action='' autoComplete='off'>
             <div>
               <label htmlFor='' className='labelRequire'>
                 Email đăng nhập
               </label>
+              {JSON.stringify(otpSended)}
               <p></p>
-              <input
+              <StyledInput
                 type='text'
                 autoComplete='off'
                 className='control'
@@ -135,28 +144,39 @@ export function ForgotPasswordPage () {
               />
             </div>
 
-            <div className='mt-4'>
-              <label htmlFor='' className='labelRequire'>
-                Nhập mã OTP
-              </label>
-              <p></p>
-              <section>
-                <input className='control' placeholder='Nhập mật khẩu' />
-              </section>
-            </div>
-
-            <div className='flex justify-center mt-2'>
-              <p>
-                Bạn chưa nhận được mã OTP?{' '}
-                <span className='otpCounter'>
-                  Gửi lại sau ({countdown.value}s)
-                </span>
-              </p>
-            </div>
-
-            <button type='button' onClick={sendOtp} className='loginButton'>
-              Tiếp tục
-            </button>
+            {otpSended ? (
+              <React.Fragment>
+                <div className='mt-4'>
+                  <label htmlFor='' className='labelRequire'>
+                    Nhập mã OTP
+                  </label>
+                  <p></p>
+                  <section>
+                    {/* <StyledInput className='control' placeholder='Nhập mật khẩu' /> */}
+                    <InputOTP length={6} />
+                  </section>
+                </div>
+                <div className='flex justify-center mt-2'>
+                  <p>
+                    Bạn chưa nhận được mã OTP?{' '}
+                    <span className='otpCounter'>
+                      Gửi lại sau ({countdown.value}s)
+                    </span>
+                  </p>
+                </div>
+                <button type='button' onClick={sendOtp} className='loginButton'>
+                  Tiếp tục
+                </button>
+              </React.Fragment>
+            ) : (
+              <StyledButton
+                type='button'
+                style={{ marginTop: '2rem' }}
+                onClick={sendOtp}
+              >
+                Gửi OTP
+              </StyledButton>
+            )}
           </form>
         </div>
 
@@ -170,3 +190,46 @@ export function ForgotPasswordPage () {
     </StyledPage>
   )
 }
+
+const StyledInput = styled(Input)(() => ({
+  fontFamily: 'Inter',
+  minWidth: '350px',
+  fontWeight: 400,
+  fontSize: '16px',
+  height: '44px',
+  border: '1px solid #D0D2D3',
+  borderRadius: '4px',
+  paddingLeft: '12px',
+  paddingRight: '12px',
+  ':hover': {
+    border: '1px solid #D0D2D3',
+    outline: 'none'
+  },
+  ':active': {
+    border: '1px solid #D0D2D3',
+    outline: 'none'
+  },
+  ':focus': {
+    border: '1px solid #D0D2D3',
+    outline: 'none'
+  }
+}))
+
+const StyledButton = styled(Button)(() => ({
+  marginTop: '1rem',
+  width: '100%',
+  padding: '10px',
+  height: '54px',
+
+  background: '#ef0032',
+  border: 'none',
+  borderRadius: '4px',
+
+  fontFamily: 'Inter',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '16px',
+  lineHeight: '120%',
+
+  color: '#ffffff'
+}))

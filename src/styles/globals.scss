@@ -14,6 +14,11 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
