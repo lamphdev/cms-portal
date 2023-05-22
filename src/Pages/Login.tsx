@@ -114,13 +114,6 @@ export function LoginPage () {
     } finally {
       setLoading(false)
     }
-    // const sleep = (time: number) =>
-    //   new Promise((resolve, reject) => {
-    //     setTimeout(() => resolve(null), time)
-    //   })
-
-    // setLoading(true)
-    // sleep(3000).then(() => setLoading(false))
   }
 
   return (

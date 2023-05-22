@@ -35,7 +35,7 @@ export const InputOTP = React.forwardRef<any, Props>((props, ref) => {
     if (onChange) {
       onChange(value)
     }
-  }, [value])
+  }, [value, onChange])
 
   const display = useMemo(() => {
     return Array.from(Array(length).keys())
