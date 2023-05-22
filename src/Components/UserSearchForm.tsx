@@ -3,6 +3,7 @@ import { Paper } from './Paper'
 import { Input, Select } from 'antd'
 import { SearchOutlined, FileExcelOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
+import { Button } from './Button'
 
 const Label = styled('label')(() => ({
   fontWeight: 600,
@@ -12,13 +13,13 @@ const Label = styled('label')(() => ({
   fontStyle: 'normal'
 }))
 
-const Button = styled('button')(({ theme }: any) => ({
-  border: 0,
-  backgroundColor: '#EF0032',
-  padding: '.5rem 1rem',
-  color: '#fff',
-  borderRadius: theme.borderRadius,
-  cursor: 'pointer',
+const StyledButton = styled(Button)(({ theme }: any) => ({
+  // border: 0,
+  // backgroundColor: '#EF0032',
+  // padding: '.5rem 1rem',
+  // color: '#fff',
+  // borderRadius: theme.borderRadius,
+  // cursor: 'pointer',
   span: {
     marginRight: '.5rem'
   }
@@ -139,14 +140,14 @@ export function UserSearchForm (props: Props) {
       </Paper>
 
       <div className='flex justify-end py-8 gap-4'>
-        <Button type='submit'>
+        <StyledButton type='submit'>
           <SearchOutlined />
           Tìm kiếm
-        </Button>
-        <Button type='button' onClick={onExportClick}>
+        </StyledButton>
+        <StyledButton type='button' onClick={onExportClick}>
           <FileExcelOutlined />
           Xuất Excel
-        </Button>
+        </StyledButton>
       </div>
     </form>
   )

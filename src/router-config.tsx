@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import {
   HomePage,
   ManageIndexPage,
@@ -16,7 +16,8 @@ import { PageList } from './Pages/PageManagement/PageList'
 export const router = createBrowserRouter([
   {
     path: '',
-    element: <HomePage />
+    // element: <HomePage />
+    element: <Navigate to={'/manage'} />
   },
   {
     path: 'login',
