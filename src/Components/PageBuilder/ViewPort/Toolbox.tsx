@@ -12,6 +12,10 @@ import {
 const ToolboxDiv = styled.div<{ enabled: boolean; isDraggingOver?: boolean }>`
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 249px;
   ${props => (!props.enabled ? `width: 0;` : ';')}
   ${props => (!props.enabled ? `opacity: 0;` : ';')}
 `
@@ -63,7 +67,7 @@ export const Toolbox = (props: ToolboxProps) => {
                       {(provided, snapshot) => {
                         return (
                           <React.Fragment>
-                            <div style={{width: '95px', height: '57px'}}>
+                            <div style={{ width: '95px', height: '57px' }}>
                               <Item
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}

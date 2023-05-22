@@ -11,6 +11,8 @@ import { ManageLayout } from './Layouts'
 import { LoginPage } from './Pages/Login'
 import { ForgotPasswordPage } from './Pages'
 import { PageList } from './Pages/PageManagement/PageList'
+import { FilterList } from './Pages/FilterManagement/FilterList'
+import { FilterListCreate } from './Pages/FilterManagement/FilterListCreate'
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ export const router = createBrowserRouter([
       {
         path: 'posts/create',
         element: <CreatePostPage />
+      },
+      {
+        path: 'filter-management',
+        element: <FilterList />
+      },
+      {
+        path: 'filter-management/:id',
+        element: <FilterListCreate />
       }
     ]
   }

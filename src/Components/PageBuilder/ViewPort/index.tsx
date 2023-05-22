@@ -225,11 +225,9 @@ export const Viewport: React.FC<{
                                     setActiveIndex(index);
                                   }}
                                   onMouseOver={() => {
-                                    console.log('a')
                                     setHoverIndex(index);
                                   }}
                                   onMouseLeave={() => {
-                                    console.log('b')
                                     setHoverIndex(-1);
                                   }}
                                   active={activeIndex === index || hoverIndex === index}
