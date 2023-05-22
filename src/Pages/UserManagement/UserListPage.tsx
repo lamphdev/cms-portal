@@ -11,7 +11,12 @@ export function UserListPage () {
         <UserSearchForm onSearch={d => console.log(d)} />
       </div>
 
-      <div style={{overflowX: 'auto'}}>
+      <div
+        style={{
+          overflowX: 'auto',
+          boxShadow: '2px 0px 10px rgba(0, 0, 0, 0.1)'
+        }}
+      >
         <Table onSort={s => console.log(s)}>
           <thead>
             <tr>
