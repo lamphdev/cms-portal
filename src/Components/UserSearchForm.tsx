@@ -1,6 +1,6 @@
 import { Controller, useForm } from 'react-hook-form'
 import { Paper } from './Paper'
-import { Input, Select } from 'antd'
+import { DatePicker, Input, Select } from 'antd'
 import { SearchOutlined, FileExcelOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { Button } from './Button'
@@ -9,17 +9,11 @@ const Label = styled('label')(() => ({
   fontWeight: 600,
   fontSize: '14px',
   //   fontFamily: 'Open Sans',
-  lineHeight: '19px',
+  lineHeight: '1.5rem',
   fontStyle: 'normal'
 }))
 
 const StyledButton = styled(Button)(({ theme }: any) => ({
-  // border: 0,
-  // backgroundColor: '#EF0032',
-  // padding: '.5rem 1rem',
-  // color: '#fff',
-  // borderRadius: theme.borderRadius,
-  // cursor: 'pointer',
   span: {
     marginRight: '.5rem'
   }
@@ -62,7 +56,11 @@ export function UserSearchForm (props: Props) {
             render={({ field }) => (
               <div>
                 <Label htmlFor=''>Ngày tạo: Từ ngày</Label>
-                <Input {...field} />
+                <DatePicker
+                  format={'DD/MM/YYYY'}
+                  {...field}
+                  style={{ width: '100%' }}
+                />
               </div>
             )}
           />
@@ -72,7 +70,11 @@ export function UserSearchForm (props: Props) {
             render={({ field }) => (
               <div>
                 <Label htmlFor=''>Ngày tạo: Đến ngày</Label>
-                <Input {...field} />
+                <DatePicker
+                  format={'DD/MM/YYYY'}
+                  {...field}
+                  style={{ width: '100%' }}
+                />
               </div>
             )}
           />

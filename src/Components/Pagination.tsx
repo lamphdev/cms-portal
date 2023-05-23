@@ -7,6 +7,7 @@ import {
   LeftOutlined,
   RightOutlined
 } from '@ant-design/icons'
+import { Select } from 'antd'
 
 interface Props {
   page: number
@@ -39,7 +40,14 @@ export function Pagination (props: Props) {
     return Array.from(Array(maxPage).keys()).filter(
       el => el >= start && el <= end
     )
-  }, [currentPage, size, total])
+  }, [currentPage, maxPage])
+
+  const pageOption = useMemo(() => {
+    return Array.from(Array(maxPage).keys()).map(element => ({
+      label: element + 1,
+      value: element
+    }))
+  }, [maxPage])
 
   useEffect(() => {
     setCurrentPage(page)
@@ -80,18 +88,21 @@ export function Pagination (props: Props) {
           </button>
         </li>
         <li>
-          <button
-            onClick={() => emitPageChange(maxPage - 1, size)}
-          >
+          <button onClick={() => emitPageChange(maxPage - 1, size)}>
             <DoubleRightOutlined />
           </button>
         </li>
       </ul>
 
-      <div>
-        <span>
+      <div className='right-side'>
+        <span className=''>
           Hiển thị {size} trên tổng số {total} bản ghi
         </span>
+        <Select
+          options={pageOption}
+          value={currentPage}
+          onChange={val => emitPageChange(val, size)}
+        ></Select>
       </div>
     </Div>
   )
@@ -135,5 +146,10 @@ const Div = styled('div')(() => ({
       color: '#fff',
       backgroundColor: '#EF0032'
     }
+  },
+  '.right-side': {
+    alignItems: 'center',
+    display: 'flex',
+    gap: '.5rem'
   }
 }))
