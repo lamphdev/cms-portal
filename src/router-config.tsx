@@ -12,6 +12,7 @@ import {
 } from './Pages'
 import { ManageLayout } from './Layouts'
 import { PageList } from './Pages/PageManagement/PageList'
+import { ServiceList } from './Pages/ServiceList/ServiceList'
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: 'posts/create',
         element: <CreatePostPage />
+      },
+      {
+        path: 'service-list',
+        element: <ServiceList />
       }
     ]
   }

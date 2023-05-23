@@ -5,7 +5,8 @@ import {
   NewSvg,
   ImageSvg,
   FilterSvg,
-  UserSvg
+  UserSvg,
+  ServiceSvg
 } from './svg.component'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
@@ -79,6 +80,11 @@ export default function LeftSidebar () {
       link: '/component-management',
       name: 'Component',
       children: ComponentSvg
+    },
+    {
+      link: 'manage/service-list',
+      name: 'Dịch vụ',
+      children: ServiceSvg
     },
     {
       link: 'news-management',
