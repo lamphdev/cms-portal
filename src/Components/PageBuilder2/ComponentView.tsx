@@ -11,7 +11,7 @@ interface ComponentViewProps {
 
 export function ComponentView (props: ComponentViewProps) {
   const { component } = props
-  const { components, setComponents, setSelected, showEditor, setShowEditor } =
+  const { components, setComponents, setSelected, setShowEditor } =
     useContext(pageBuilderContext)
 
   const onSelectView = () => {

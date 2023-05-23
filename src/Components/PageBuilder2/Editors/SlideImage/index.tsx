@@ -11,7 +11,7 @@ export function SlideImageEditor () {
     if (component) {
       setBackgroundUrl(component?.backgroundImage || '')
     }
-  }, [])
+  }, [getSelectedComponent])
 
   const handleOnChange = (e: any) => {
     const value = e.target.value
