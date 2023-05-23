@@ -6,6 +6,7 @@ import { useState } from 'react'
 import React from 'react'
 import { InputOTP } from '../../Components'
 import { useCountDown } from '../../Hooks'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   onOtpValidated?: (otp: string, email: string) => void
@@ -13,7 +14,8 @@ interface Props {
 
 export function ForgotScreen (props: Props) {
   const { onOtpValidated } = props
-  const { control, handleSubmit } = useForm({
+  const { t } = useTranslation()
+  const { control, clearErrors, setFocus, handleSubmit } = useForm({
     mode: 'all',
     reValidateMode: 'onChange'
   })
@@ -22,6 +24,10 @@ export function ForgotScreen (props: Props) {
 
   const sendOtp = async () => {
     setOtpSended(true)
+    setTimeout(() => {
+      clearErrors('otp')
+      setFocus('otp')
+    }, 0)
     otpCowndown.start()
   }
 
@@ -31,8 +37,16 @@ export function ForgotScreen (props: Props) {
     }
   }
 
+  const onSubmit = (formValue: any) => {
+    if (!otpSended) {
+      sendOtp()
+    } else {
+      nextScreen(formValue)
+    }
+  }
+
   return (
-    <form action='' autoComplete='off'>
+    <form action='' autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor='' className='labelRequire'>
           Email đăng nhập
@@ -43,11 +57,11 @@ export function ForgotScreen (props: Props) {
           rules={{
             required: {
               value: true,
-              message: 'email.required'
+              message: 'validation.required'
             },
             pattern: {
               value: new RegExp(EMAIL_REGEX),
-              message: 'email.format'
+              message: 'validation.invalidFormat'
             }
           }}
           render={({ field, fieldState }) => (
@@ -60,7 +74,11 @@ export function ForgotScreen (props: Props) {
                 autoComplete='off'
                 placeholder='Nhập email'
               />
-              <p className='control-message'>{fieldState.error?.message}</p>
+              {fieldState.error?.message && (
+                <p className='control-message'>
+                  {t(fieldState.error?.message, { field: field.name })}
+                </p>
+              )}
             </section>
           )}
         />
@@ -77,18 +95,22 @@ export function ForgotScreen (props: Props) {
               rules={{
                 required: {
                   value: true,
-                  message: 'otp.required'
+                  message: 'validation.required'
                 },
                 minLength: {
                   value: 6,
-                  message: 'otp.invalidLength'
+                  message: ''
                 }
               }}
               name='otp'
               render={({ field, fieldState }) => (
                 <section style={{ marginTop: '.5rem' }}>
                   <InputOTP {...field} length={6} />
-                  <p className='control-message'>{fieldState.error?.message}</p>
+                  {fieldState.error?.message && (
+                    <p className='control-message'>
+                      {t(fieldState.error?.message, { field: field.name })}
+                    </p>
+                  )}
                 </section>
               )}
             />
@@ -101,20 +123,12 @@ export function ForgotScreen (props: Props) {
               </span>
             </p>
           </div>
-          <StyledButton
-            type='button'
-            onClick={handleSubmit(nextScreen)}
-            className='loginButton'
-          >
+          <StyledButton type='submit' className='loginButton'>
             Tiếp tục
           </StyledButton>
         </React.Fragment>
       ) : (
-        <StyledButton
-          type='button'
-          style={{ marginTop: '2rem' }}
-          onClick={handleSubmit(sendOtp)}
-        >
+        <StyledButton type='submit' style={{ marginTop: '2rem' }}>
           Gửi OTP
         </StyledButton>
       )}

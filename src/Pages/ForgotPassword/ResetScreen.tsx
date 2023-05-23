@@ -1,6 +1,7 @@
 import { Controller, useForm } from 'react-hook-form'
 import { EMAIL_REGEX } from '../../utils/regex'
 import { StyledButton, StyledInput } from './styles'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   email: string
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function ResetScreen (props: Props) {
+  const { t } = useTranslation()
   const { email, onResetPassword } = props
   const { control, handleSubmit } = useForm({
     mode: 'all',
@@ -26,7 +28,7 @@ export function ResetScreen (props: Props) {
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onFormSubmit)}>
       <div>
         <label htmlFor='' className='labelRequire'>
           Email đăng nhập
@@ -37,11 +39,11 @@ export function ResetScreen (props: Props) {
           rules={{
             required: {
               value: true,
-              message: 'email.required'
+              message: 'validation.required'
             },
             pattern: {
               value: new RegExp(EMAIL_REGEX),
-              message: 'email.format'
+              message: 'validation.invalidFormat'
             }
           }}
           render={({ field, fieldState }) => (
@@ -54,7 +56,11 @@ export function ResetScreen (props: Props) {
                 autoComplete='off'
                 placeholder='Nhập email'
               />
-              <p className='control-message'>{fieldState.error?.message}</p>
+              {fieldState.error?.message && (
+                <p className='control-message'>
+                  {t(fieldState.error?.message, { field: field.name })}
+                </p>
+              )}
             </section>
           )}
         />
@@ -70,7 +76,7 @@ export function ResetScreen (props: Props) {
           rules={{
             required: {
               value: true,
-              message: 'newPass.required'
+              message: 'validation.required'
             }
           }}
           render={({ field, fieldState }) => (
@@ -78,11 +84,16 @@ export function ResetScreen (props: Props) {
               <StyledInput
                 {...field}
                 type='text'
+                maxLength={100}
                 error={fieldState.invalid ? 'true' : 'false'}
                 autoComplete='off'
                 placeholder='Nhập email'
               />
-              <p className='control-message'>{fieldState.error?.message}</p>
+              {fieldState.error?.message && (
+                <p className='control-message'>
+                  {t(fieldState.error?.message, { field: field.name })}
+                </p>
+              )}
             </section>
           )}
         />
@@ -98,11 +109,11 @@ export function ResetScreen (props: Props) {
           rules={{
             required: {
               value: true,
-              message: 'confirmPass.required'
+              message: 'validation.required'
             },
             validate: (field, form) => {
               if (field !== form.password) {
-                return 'confirmPass.notMatch'
+                return 'validation.rePasswordNotMatch'
               }
               return true
             }
@@ -116,18 +127,19 @@ export function ResetScreen (props: Props) {
                 autoComplete='off'
                 placeholder='Nhập email'
               />
-              <p className='control-message'>{fieldState.error?.message}</p>
+              <p className='control-message'>
+                {fieldState.error?.message &&
+                  t(fieldState.error.message, {
+                    field: field.name
+                  })}
+              </p>
             </section>
           )}
         />
       </div>
 
       <div>
-        <StyledButton
-          type='button'
-          style={{ marginTop: '2rem' }}
-          onClick={handleSubmit(onFormSubmit)}
-        >
+        <StyledButton type='submit' style={{ marginTop: '2rem' }}>
           Đổi mật khẩu
         </StyledButton>
       </div>

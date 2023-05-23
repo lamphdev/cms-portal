@@ -48,7 +48,8 @@ export const StyledPage = styled('div')(({ theme }: any) => ({
   },
   '.control-message': {
     color: 'red',
-    margin: 0
+    margin: 0,
+    marginTop: '.5rem'
   },
   '.linkWrap': {
     display: 'flex',
