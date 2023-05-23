@@ -19,7 +19,7 @@ export function ForgotScreen (props: Props) {
     mode: 'all',
     reValidateMode: 'onChange'
   })
-  const otpCowndown = useCountDown(20)
+  const otpCowndown = useCountDown()
   const [otpSended, setOtpSended] = useState(false)
 
   const sendOtp = async () => {
@@ -28,7 +28,7 @@ export function ForgotScreen (props: Props) {
       clearErrors('otp')
       setFocus('otp')
     }, 0)
-    otpCowndown.start()
+    otpCowndown.start(20)
   }
 
   const nextScreen = async (data: any) => {

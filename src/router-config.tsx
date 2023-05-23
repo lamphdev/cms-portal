@@ -5,11 +5,11 @@ import {
   UserListPage,
   UserDetailPage,
   PostListPage,
-  CreatePostPage
+  CreatePostPage,
+  LoginPage,
+  ForgotPasswordPage
 } from './Pages'
 import { ManageLayout } from './Layouts'
-import { LoginPage } from './Pages/Login'
-import { ForgotPasswordPage } from './Pages'
 import { PageList } from './Pages/PageManagement/PageList'
 
 export const router = createBrowserRouter([
