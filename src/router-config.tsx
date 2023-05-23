@@ -63,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: 'service-list',
         element: <ServiceList />
+      },
+      {
+        path: 'image-list',
+        element: <ServiceList />
       }
     ]
   }

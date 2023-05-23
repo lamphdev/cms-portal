@@ -1,6 +1,7 @@
 import { SearchOutlined } from "@ant-design/icons"
 import styled from "@emotion/styled"
 import { Button, Input, Select, PaginationProps, Pagination } from "antd"
+import { useForm, Controller } from "react-hook-form"
 import { Table, TH } from "../../Components"
 import { PaginationCustom } from "../../Components/PaginationCustom"
 import { theme } from "../../theme"
@@ -52,6 +53,7 @@ const ServiceDiv = styled('div')(() => ({
 }))
 
 export const ServiceList = () => {
+    const { control, getValues } = useForm()
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
     };
@@ -64,39 +66,46 @@ export const ServiceList = () => {
         </div>
         <div className="searchForm">
             <div className="form-search">
-                <div>
-                    <span>Loại dịch vụ</span>
-                    <Select
-                        defaultValue=""
-                        onChange={handleChange}
-                        options={[
-                            { value: 'jack', label: 'Jack' },
-                            { value: 'lucy', label: 'Lucy' },
-                            { value: 'Yiminghe', label: 'yiminghe' },
-                            { value: 'disabled', label: 'Disabled', disabled: true },
-                        ]}
-                    />
-                </div>
-                <div>
-                    <span>Tên dịch vụ</span>
-                    <Input placeholder="Nhập tên dịch vụ" />
-                </div>
-                <div>
-                    <span>Trạng thái</span>
-                    <Select
-                        defaultValue=""
-                        onChange={handleChange}
-                        options={[
-                            { value: 'jack', label: 'Jack' },
-                            { value: 'lucy', label: 'Lucy' },
-                            { value: 'Yiminghe', label: 'yiminghe' },
-                            { value: 'disabled', label: 'Disabled', disabled: true },
-                        ]}
-                    />
-                </div>
+                <Controller control={control} name="serviceType"
+                    render={({ field }) => <div>
+                        <span>Loại dịch vụ</span>
+                        <Select
+                            {...field}
+                            defaultValue=""
+                            options={[
+                                { value: 'jack', label: 'Jack' },
+                                { value: 'lucy', label: 'Lucy' },
+                                { value: 'Yiminghe', label: 'yiminghe' },
+                                { value: 'disabled', label: 'Disabled', disabled: true },
+                            ]}
+                        />
+                    </div>}
+                />
+                <Controller control={control} name="serviceName"
+                    render={({ field }) => <div>
+                        <span>Tên dịch vụ</span>
+                        <Input {...field} placeholder="Nhập tên dịch vụ" />
+                    </div>}
+                />
+                <Controller control={control} name="status"
+                    render={({ field }) => <div>
+                        <span>Trạng thái</span>
+                        <Select
+                            {...field}
+                            defaultValue=""
+                            options={[
+                                { value: 'jack', label: 'Jack' },
+                                { value: 'lucy', label: 'Lucy' },
+                                { value: 'Yiminghe', label: 'yiminghe' },
+                                { value: 'disabled', label: 'Disabled', disabled: true },
+                            ]}
+                        />
+                    </div>}
+                />
             </div>
             <div className="actions">
-                <Button type="primary" icon={<SearchOutlined />}>
+                <Button type="primary" onClick={() => console.log(getValues())}
+                    icon={<SearchOutlined />}>
                     Search
                 </Button>
             </div>
