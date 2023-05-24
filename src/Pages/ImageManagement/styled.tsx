@@ -137,6 +137,11 @@ export const ModalEditImage = styled(Modal)(() => ({
                     width: '350px'
                 }
             }
+        },
+        '.image-preview': {
+            marginTop: 10,
+            width: '100%',
+            textAlign: 'center',
         }
     },
 }))
