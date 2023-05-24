@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-import ReactQuill from 'react-quill'
+import ReactQuill, { Quill } from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import ImageResize from 'quill-image-resize-module-react'
+
+Quill.register('modules/imageResize', ImageResize)
 
 interface Props {
   value?: string
@@ -38,6 +41,10 @@ export const Editor = React.forwardRef((props: Props, ref: any) => {
       style={{ minHeight: '500px' }}
       theme='snow'
       modules={{
+        imageResize: {
+          parchment: Quill.import('parchment'),
+          modules: ['Resize', 'DisplaySize']
+        },
         toolbar: [
           ['bold', 'italic', 'underline', 'strike'], // toggled buttons
           ['blockquote', 'code-block'],

@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { EMAIL_REGEX } from '../../utils/regex'
 import { StyledButton, StyledInput } from './styles'
 import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 interface Props {
   email: string
@@ -11,7 +12,7 @@ interface Props {
 export function ResetScreen (props: Props) {
   const { t } = useTranslation()
   const { email, onResetPassword } = props
-  const { control, handleSubmit } = useForm({
+  const { control, setFocus, handleSubmit } = useForm({
     mode: 'all',
     reValidateMode: 'onChange',
     defaultValues: {
@@ -26,6 +27,10 @@ export function ResetScreen (props: Props) {
       onResetPassword(value)
     }
   }
+
+  useEffect(() => {
+    setFocus('password');
+  }, [setFocus])
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>

@@ -1,5 +1,5 @@
 import { HeaderLogo } from '../../Components'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   EyeFilled,
@@ -15,11 +15,15 @@ export function LoginPage () {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const { control, handleSubmit } = useForm({
-    mode: 'all',
+  const { control, setFocus, handleSubmit } = useForm({
+    mode: 'onBlur',
     reValidateMode: 'onChange'
   })
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setFocus('username')
+  }, [setFocus])
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword)

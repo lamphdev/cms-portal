@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import {
   ManageIndexPage,
   PageDetail,
@@ -7,7 +7,8 @@ import {
   PostListPage,
   CreatePostPage,
   LoginPage,
-  ForgotPasswordPage
+  ForgotPasswordPage,
+  HomePage
 } from './Pages'
 import { ManageLayout } from './Layouts'
 import { PageList } from './Pages/PageManagement/PageList'
@@ -15,8 +16,8 @@ import { PageList } from './Pages/PageManagement/PageList'
 export const router = createBrowserRouter([
   {
     path: '',
-    // element: <HomePage />
-    element: <Navigate to={'/manage'} />
+    element: <HomePage />
+    // element: <Navigate to={'/manage'} />
   },
   {
     path: 'login',

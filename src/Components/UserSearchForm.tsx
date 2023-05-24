@@ -4,6 +4,21 @@ import { DatePicker, Input, Select } from 'antd'
 import { SearchOutlined, FileExcelOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { Button } from './Button'
+import dayjs from 'dayjs'
+
+const formatMoment = (input: any) => {
+  if (input) {
+    return input.format('DD/MM/YYYY')
+  }
+  return null
+}
+
+const parseMoment = (str: string | null | undefined): any => {
+  if (str) {
+    return dayjs(str, 'DD/MM/YYYY')
+  }
+  return null
+}
 
 const Label = styled('label')(() => ({
   fontWeight: 600,
@@ -59,6 +74,10 @@ export function UserSearchForm (props: Props) {
                 <DatePicker
                   format={'DD/MM/YYYY'}
                   {...field}
+                  value={parseMoment(field.value)}
+                  onChange={val => {
+                    field.onChange(formatMoment(val))
+                  }}
                   style={{ width: '100%' }}
                 />
               </div>
@@ -72,7 +91,8 @@ export function UserSearchForm (props: Props) {
                 <Label htmlFor=''>Ngày tạo: Đến ngày</Label>
                 <DatePicker
                   format={'DD/MM/YYYY'}
-                  {...field}
+                  value={parseMoment(field.value)}
+                  onChange={val => field.onChange(formatMoment(val))}
                   style={{ width: '100%' }}
                 />
               </div>

@@ -2,7 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { EMAIL_REGEX } from '../../utils/regex'
 
 import { StyledButton, StyledInput } from './styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import { InputOTP } from '../../Components'
 import { useCountDown } from '../../Hooks'
@@ -21,6 +21,10 @@ export function ForgotScreen (props: Props) {
   })
   const otpCowndown = useCountDown()
   const [otpSended, setOtpSended] = useState(false)
+
+  useEffect(() => {
+    setFocus('email')
+  }, [setFocus])
 
   const sendOtp = async () => {
     setOtpSended(true)
