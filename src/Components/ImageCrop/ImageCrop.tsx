@@ -54,10 +54,16 @@ export const ImageCrop = (props: Iprops) => {
                 const { width, height } = imgRef.current
                 setAspect(props.aspect)
                 setCrop(centerAspectCrop(width, height, props.aspect))
-                // setTimeout(() => {
-                //     const selections = document.getElementsByClassName('ReactCrop__crop-selection');
-                //     (selections[0] as any).click();
-                // }, 1000)
+                if (crop) {
+                    const newCrop = centerAspectCrop(width, height, props.aspect);
+                    setCompletedCrop({
+                        x: newCrop.x * width / 100,
+                        y: newCrop.y * height / 100,
+                        width: newCrop.width * width / 100,
+                        height: newCrop.height * height / 100,
+                        unit: 'px'
+                    })
+                }
             }
         }
     }, [props.aspect])
