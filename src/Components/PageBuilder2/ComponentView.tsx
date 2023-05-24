@@ -1,9 +1,10 @@
 import { Draggable } from 'react-beautiful-dnd'
 import { pageBuilderContext } from '.'
 import { ReactNode, useContext } from 'react'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { ContentDisplay, componentConfigs } from './config'
+import { Button } from 'antd'
 
 interface ComponentViewProps {
   component: ContentDisplay
@@ -11,7 +12,7 @@ interface ComponentViewProps {
 
 export function ComponentView (props: ComponentViewProps) {
   const { component } = props
-  const { components, setComponents, setSelected, setShowEditor } =
+  const { components, setComponents, setSelected } =
     useContext(pageBuilderContext)
 
   const onSelectView = () => {
@@ -35,7 +36,7 @@ export function ComponentView (props: ComponentViewProps) {
       draggableId={component.id || ''}
       index={component.displayOrder || 0}
     >
-      {(provided, snapshot) => (
+      {provided => (
         <StyledDiv
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -44,12 +45,10 @@ export function ComponentView (props: ComponentViewProps) {
           onClick={onSelectView}
         >
           <div className='actions'>
-            <button onClick={deleteView}>
-              <DeleteOutlined />
-            </button>
-            <button onClick={() => setShowEditor(true)}>
-              <EditOutlined />
-            </button>
+            <ActionButton
+              onClick={deleteView}
+              icon={<DeleteOutlined />}
+            ></ActionButton>
           </div>
           {render()}
         </StyledDiv>
@@ -78,4 +77,10 @@ const StyledDiv = styled('div')(() => ({
       borderRadius: '.5rem .5rem 0 0'
     }
   }
+}))
+
+const ActionButton = styled(Button)(() => ({
+  background: 'transparent',
+  border: 'none',
+  color: '#fff'
 }))
