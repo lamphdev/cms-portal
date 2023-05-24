@@ -132,6 +132,11 @@ export const ServiceList = () => {
                     <td>Hóa đơn điện tử</td>
                     <td style={{ color: '#FF0000', textAlign: 'center', cursor: 'pointer' }}>Đã khóa</td>
                 </tr>
+                <tr>
+                    <td colSpan={4} style={{ textAlign: 'center' }}>
+                        Không tìm thấy kết quả.
+                    </td>
+                </tr>
             </tbody>
         </Table>
         <PaginationCustom defaultCurrent={2} total={500} onChange={onChange} />
