@@ -12,6 +12,8 @@ import { LoginPage } from './Pages/Login'
 import { ForgotPasswordPage } from './Pages'
 import { PageList } from './Pages/PageManagement/PageList'
 import { ServiceList } from './Pages/ServiceList/ServiceList'
+import { ImageList } from './Pages/ImageManagement/ImageList'
+import { ImageDetail } from './Pages/ImageManagement/ImageDetail'
 
 export const router = createBrowserRouter([
   {
@@ -64,8 +66,12 @@ export const router = createBrowserRouter([
         element: <ServiceList />
       },
       {
-        path: 'image-list',
-        element: <ServiceList />
+        path: 'image-management',
+        element: <ImageList />
+      },
+      {
+        path: 'image-management/:id',
+        element: <ImageDetail />
       }
     ]
   }
