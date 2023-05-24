@@ -1,13 +1,20 @@
 import { CopyOutlined, DeleteOutlined, EditOutlined, UploadOutlined } from "@ant-design/icons"
 import { Input, Select, Upload } from "antd"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ImageCrop } from "../../Components/ImageCrop/ImageCrop";
 import { ButtonActionImage, ButtonEdit, ButtonUpload, ImageDetailBlock, ModalEditImage } from "./styled"
 
 export const ImageDetail = () => {
     const [open, setOpen] = useState<boolean>(false);
-    const { control } = useForm();
+    const { control , watch, getValues} = useForm();
+    const [currentAspect, setCurrentAspect] = useState([1, 1]);
+    const watchAspect = watch("aspect");
+    useEffect(() => {
+        const [width, height] = (watchAspect + "").split(":")
+        setCurrentAspect([+width, +height]);
+    }, [watchAspect])
+
     return <ImageDetailBlock>
         <div>
             <span>Ảnh {'>'} Chi tiết thư mục</span>
@@ -31,7 +38,7 @@ export const ImageDetail = () => {
                         </Upload>
                     </div>
                     {
-                        [1, 2, 3, 4, 5].map((item: any, index: number) => <div className="card">
+                        [1, 2, 3, 4, 5].map((item: any, index: number) => <div className="card" key={index}>
                             <div className="action">
                                 <ButtonActionImage onClick={() => setOpen(true)} color={'blue'} icon={<EditOutlined />} title={"edit"}></ButtonActionImage>
                                 <ButtonActionImage color={'orange'} icon={<CopyOutlined />} title={"copy"}></ButtonActionImage>
@@ -73,7 +80,7 @@ export const ImageDetail = () => {
                 />
                 <Controller
                     control={control}
-                    name="size"
+                    name="aspect"
                     render={({ field }) => <div>
                         <label htmlFor="">Kích thước <span className="danger">*</span></label>
                         <Select
@@ -96,7 +103,9 @@ export const ImageDetail = () => {
                         <Input {...field} placeholder="Nhập tên ảnh" />
                     </div>}
                 />
-                <ImageCrop/>
+            </div>
+            <div className="image-preview">
+                <ImageCrop aspect={currentAspect[0]/currentAspect[1]} />
             </div>
         </ModalEditImage>
     </ImageDetailBlock>
