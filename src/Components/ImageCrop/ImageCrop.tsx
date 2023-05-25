@@ -46,7 +46,7 @@ export const ImageCrop = (props: Iprops) => {
     const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
     const [scale, setScale] = useState(1)
     const [rotate, setRotate] = useState(0)
-    const [aspect, setAspect] = useState<number | undefined>(props.aspect > 0 ? props.aspect : 1 / 1)
+    const [aspect, setAspect] = useState<number | undefined>(props.aspect > 0 ? props.aspect : 16 / 9)
 
     useEffect(() => {
         if (props.aspect) {
@@ -68,6 +68,14 @@ export const ImageCrop = (props: Iprops) => {
         }
     }, [props.aspect])
 
+    function blobToBase64(blob: any) {
+        return new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    }
+
     function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files.length > 0) {
             setCrop(undefined) // Makes crop preview update between images.
@@ -88,19 +96,26 @@ export const ImageCrop = (props: Iprops) => {
 
     function onDownloadCropClick() {
         if (!previewCanvasRef.current) {
-            throw new Error('Crop canvas does not exist')
+            // throw new Error('Crop canvas does not exist')
+            console.log('Crop canvas does not exist');
+            return
         }
 
-        previewCanvasRef.current.toBlob((blob) => {
+        previewCanvasRef.current.toBlob(async (blob) => {
             if (!blob) {
-                throw new Error('Failed to create blob')
+                // throw new Error('Failed to create blob');
+                console.log('Failed to create blob');
+                return
             }
             if (blobUrlRef.current) {
                 URL.revokeObjectURL(blobUrlRef.current)
             }
-            blobUrlRef.current = URL.createObjectURL(blob)
-            hiddenAnchorRef.current!.href = blobUrlRef.current
-            hiddenAnchorRef.current!.click()
+            const base64: any = await blobToBase64(blob);
+            navigator.clipboard.writeText(base64);
+            console.log(base64);
+            // blobUrlRef.current = URL.createObjectURL(blob);
+            // hiddenAnchorRef.current!.href = blobUrlRef.current
+            // hiddenAnchorRef.current!.click()
         })
     }
 
@@ -136,6 +151,10 @@ export const ImageCrop = (props: Iprops) => {
         }
     }
 
+    useEffect(() => {
+        onDownloadCropClick();
+    }, [setCompletedCrop, completedCrop])
+
     return <div>
         {!!imgSrc && (
             <ReactCrop
@@ -145,6 +164,7 @@ export const ImageCrop = (props: Iprops) => {
                 aspect={aspect}
             >
                 <img
+                    crossOrigin='anonymous'
                     ref={imgRef}
                     alt="Crop me"
                     src={imgSrc}
@@ -155,7 +175,7 @@ export const ImageCrop = (props: Iprops) => {
         )}
         {!!completedCrop && (
             <>
-                <div>
+                <div style={{ display: 'none' }}>
                     <canvas
                         ref={previewCanvasRef}
                         style={{
@@ -166,7 +186,7 @@ export const ImageCrop = (props: Iprops) => {
                         }}
                     />
                 </div>
-                {/* <div>
+                <div style={{ display: 'none' }}>
                     <button onClick={onDownloadCropClick}>Download Crop</button>
                     <a
                         ref={hiddenAnchorRef}
@@ -179,7 +199,7 @@ export const ImageCrop = (props: Iprops) => {
                     >
                         Hidden download
                     </a>
-                </div> */}
+                </div>
             </>
         )}
     </div>
