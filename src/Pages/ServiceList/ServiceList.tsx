@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 import { Button, Input, Select, PaginationProps, Pagination } from "antd"
 import { useForm, Controller } from "react-hook-form"
 import { Table, TH } from "../../Components"
+import { CmsBreakcrumb } from "../../Components/Breakcrumb/CmsBreakcrumb"
 import { PaginationCustom } from "../../Components/PaginationCustom"
 import { theme } from "../../theme"
 
@@ -62,7 +63,7 @@ export const ServiceList = () => {
     };
     return (<ServiceDiv>
         <div>
-            <span>Danh sách dịch vụ</span>
+            <CmsBreakcrumb/>
         </div>
         <div className="searchForm">
             <div className="form-search">

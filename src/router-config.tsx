@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import {
   ManageIndexPage,
   PageDetail,
@@ -15,23 +15,26 @@ import { PageList } from './Pages/PageManagement/PageList'
 import { ServiceList } from './Pages/ServiceList/ServiceList'
 import { ImageList } from './Pages/ImageManagement/ImageList'
 import { ImageDetail } from './Pages/ImageManagement/ImageDetail'
-
-export const router = createBrowserRouter([
+export const RouterConfig = [
   {
     path: '',
     // element: <HomePage />
+    name: 'Trang chủ',
     element: <Navigate to={'/manage'} />
   },
   {
     path: 'login',
+    name: 'Login',
     element: <LoginPage />
   },
   {
     path: 'forgot-password',
+    name: 'Quen mat khau',
     element: <ForgotPasswordPage />
   },
   {
     path: '/manage',
+    name: 'Quản lý',
     element: <ManageLayout />,
     children: [
       {
@@ -40,14 +43,17 @@ export const router = createBrowserRouter([
       },
       {
         path: 'pages',
+        name: 'Quan ly page',
         element: <PageList />
       },
       {
         path: 'pages/:id',
+        name: 'Chi tiet trang',
         element: <PageDetail />
       },
       {
         path: 'users',
+        name: 'User',
         element: <UserListPage />
       },
       {
@@ -64,16 +70,27 @@ export const router = createBrowserRouter([
       },
       {
         path: 'service-list',
+        name: 'Dịch vụ',
         element: <ServiceList />
       },
       {
         path: 'image-management',
-        element: <ImageList />
-      },
-      {
-        path: 'image-management/:id',
-        element: <ImageDetail />
+        name: 'Ảnh',
+        element: <Outlet/>,
+        children: [
+          {
+            path: '',
+            name: 'Quan ly anh',
+            element: <ImageList />
+          },
+          {
+            path: ':id',
+            name: 'chi tiet anh',
+            element: <ImageDetail />
+          }
+        ]
       }
     ]
   }
-])
+]
+export const router = createBrowserRouter(RouterConfig);

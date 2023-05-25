@@ -4,6 +4,7 @@ import { RcFile } from "antd/es/upload/interface";
 import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { InView, useInView } from "react-intersection-observer";
+import { CmsBreakcrumb } from "../../Components/Breakcrumb/CmsBreakcrumb";
 import { ImageCrop } from "../../Components/ImageCrop/ImageCrop";
 import { ButtonActionImage, ButtonEdit, ButtonUpload, ImageDetailBlock, ModalEditImage } from "./styled"
 
@@ -59,7 +60,7 @@ export const ImageDetail = () => {
 
     return <ImageDetailBlock ref={intersectionObserverRef}>
         <div>
-            {/* <CmsBreadcrumbs/> */}
+            <CmsBreakcrumb/>
         </div>
         <div className="header">
             <span>CHI TIẾT THƯ MỤC</span>
