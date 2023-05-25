@@ -16,7 +16,7 @@ interface ItemProps {
   link: string
   onClick?: (props: any) => void
   isActive: boolean
-  component: React.FunctionComponent<any> // can using ComponentType or using ReactNode example <GlobalSvg isActive={true} />
+  icon: React.FunctionComponent<any> // can using ComponentType or using ReactNode example <GlobalSvg isActive={true} />
 }
 
 const StyledSidebar = styled('section')(() => ({
@@ -54,7 +54,7 @@ const StyledLi = styled('li')<{ isActive: boolean }>(({ isActive }) => ({
 }))
 
 export const Item = (props: ItemProps) => {
-  const Children = props.component
+  const Children = props.icon
   return (
     <StyledLi isActive={props.isActive} onClick={() => props.onClick?.(props)}>
       <div>{<Children isActive={props.isActive} />}</div>
@@ -69,42 +69,42 @@ export const Item = (props: ItemProps) => {
 
 export default function LeftSidebar () {
   const [position, setPosition] = useState(0)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const items = [
     {
-      link: '/page-management',
+      link: '/manage/pages',
       name: 'Trang web',
-      children: GlobalSvg
+      icon: GlobalSvg
     },
     {
-      link: '/component-management',
+      link: '/manage/component-management',
       name: 'Component',
-      children: ComponentSvg
+      icon: ComponentSvg
     },
     {
-      link: 'manage/service-list',
+      link: '/manage/service-list',
       name: 'Dịch vụ',
-      children: ServiceSvg
+      icon: ServiceSvg
     },
     {
       link: 'news-management',
       name: 'Tin tức',
-      children: NewSvg
+      icon: NewSvg
     },
     {
       link: 'image-management',
       name: 'Ảnh',
-      children: ImageSvg
+      icon: ImageSvg
     },
     {
       link: 'filter-management',
       name: 'Filter',
-      children: FilterSvg
+      icon: FilterSvg
     },
     {
       link: 'user-management',
       name: 'User',
-      children: UserSvg
+      icon: UserSvg
     }
   ]
   const onSelected = (index: number) => {
@@ -127,9 +127,9 @@ export default function LeftSidebar () {
               }}
               key={index}
               name={item.name}
-              isActive={index === position}
+              isActive={window.location.pathname.indexOf(item.link) >= 0}
               link={item?.link}
-              component={item.children}
+              icon={item.icon}
             />
           ))}
         </ul>

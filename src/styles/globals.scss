@@ -5,8 +5,23 @@
 @import 'component.module.scss';
 @import 'page-layout.module.scss';
 @import 'page-content-editor.module.scss';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,300&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wsght@0,400;1,300&display=swap');
+
+@font-face {
+  font-family: 'Inter-Light';
+  src: url('../../public/fonts/Inter/static/Inter-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+@font-face {
+  font-family: 'OpenSans-Regular';
+  src: url('../../public/fonts/Open_Sans/static/OpenSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -43,6 +58,7 @@ body {
   //   )
   //   rgb(var(--background-start-rgb));
   font-size: $font-size-default;
+  font-family: 'Inter-Light';
 }
 
 .container-custom {

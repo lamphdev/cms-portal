@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import {
   ManageIndexPage,
   PageDetail,
@@ -19,8 +19,8 @@ import { ImageDetail } from './Pages/ImageManagement/ImageDetail'
 export const router = createBrowserRouter([
   {
     path: '',
-    element: <HomePage />
-    // element: <Navigate to={'/manage'} />
+    // element: <HomePage />
+    element: <Navigate to={'/manage'} />
   },
   {
     path: 'login',

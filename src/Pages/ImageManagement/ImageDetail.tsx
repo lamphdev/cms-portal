@@ -59,7 +59,7 @@ export const ImageDetail = () => {
 
     return <ImageDetailBlock ref={intersectionObserverRef}>
         <div>
-            <span>Ảnh {'>'} Chi tiết thư mục</span>
+            {/* <CmsBreadcrumbs/> */}
         </div>
         <div className="header">
             <span>CHI TIẾT THƯ MỤC</span>
@@ -84,7 +84,7 @@ export const ImageDetail = () => {
                     </div>
                     {
                         items.map((item: any, index: number) =>
-                        (<InView>
+                        (<InView key={index}>
                             {({ ref, inView }) => (<div className="card" key={index} ref={ref}>
                                 <div className="action">
                                     <ButtonActionImage onClick={() => setOpen(true)} color={'blue'} icon={<EditOutlined />} title={"edit"}></ButtonActionImage>
