@@ -1,3 +1,4 @@
+//link tham khao https://codesandbox.io/s/react-image-crop-demo-with-react-hooks-forked-llw29u?file=/src/App.tsx
 import ReactCrop, {
     centerCrop,
     makeAspectCrop,
