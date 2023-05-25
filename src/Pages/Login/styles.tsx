@@ -2,14 +2,14 @@ import styled from '@emotion/styled'
 import { Button } from '../../Components'
 import { Input } from 'antd'
 
-export const StyledPage = styled('div')(({ theme }: any) => ({
+export const PageWrapper = styled('div')(({ theme }: any) => ({
   width: '100%',
   height: '100vh',
   display: 'flex',
-  '.forgotFrame': {
+  '.loginFrame': {
     margin: 'auto'
   },
-  '.forgotHeader': {
+  '.loginHeader': {
     display: 'flex',
     justifyContent: 'center'
   },
@@ -19,7 +19,7 @@ export const StyledPage = styled('div')(({ theme }: any) => ({
     padding: '3rem',
     marginTop: '2rem'
   },
-  '.forgotTitle': {
+  '.loginTitle': {
     margin: 0,
     height: '29px',
     marginBottom: '43px',
@@ -81,48 +81,37 @@ export const StyledPage = styled('div')(({ theme }: any) => ({
     lineHeight: '120%',
 
     color: '#ffffff'
-  },
-  '.otpCounter': {
-    color: theme.colors.primary,
-    cursor: 'pointer',
-    userSelect: 'none'
   }
 }))
 
-export const StyledIconButton = styled('button')`
-  border: none;
-  padding: 0.5rem 1rem;
-  background-color: transparent;
-  cursor: pointer;
-`
+export const StyledInput = styled(Input)(() => ({
+  fontFamily: 'Inter',
+  minWidth: '350px',
+  fontWeight: 400,
+  fontSize: '16px',
+  height: '44px',
+  border: '1px solid #D0D2D3',
+  borderRadius: '4px',
+  paddingLeft: '12px',
+  paddingRight: '12px',
+  '&.control-error': {
+    borderColor: 'red !important'
+  },
+  ':not(.control-error):hover': {
+    border: '1px solid #D0D2D3',
+    outline: 'none'
+  },
+  ':not(.control-error):active': {
+    border: '1px solid #D0D2D3',
+    outline: 'none'
+  },
+  ':not(.control-error):focus': {
+    border: '1px solid #D0D2D3',
+    outline: 'none'
+  }
+}))
 
-export const StyledInput = styled(Input)<{ error?: 'true' | 'false' }>(
-  ({ error }) => ({
-    fontFamily: 'Inter',
-    minWidth: '350px',
-    fontWeight: 400,
-    fontSize: '16px',
-    height: '44px',
-    border: error === 'true' ? '1px solid red' : '1px solid #D0D2D3',
-    borderRadius: '4px',
-    paddingLeft: '12px',
-    paddingRight: '12px',
-    ':hover': {
-      border: error === 'true' ? '1px solid red' : '1px solid #D0D2D3',
-      outline: 'none'
-    },
-    ':active': {
-      border: error === 'true' ? '1px solid red' : '1px solid #D0D2D3',
-      outline: 'none'
-    },
-    ':focus': {
-      border: error === 'true' ? '1px solid red' : '1px solid #D0D2D3',
-      outline: 'none'
-    }
-  })
-)
-
-export const StyledButton = styled(Button)(() => ({
+export const ButtonLogin = styled(Button)(() => ({
   marginTop: '1rem',
   width: '100%',
   padding: '10px',
@@ -138,5 +127,8 @@ export const StyledButton = styled(Button)(() => ({
   fontSize: '16px',
   lineHeight: '120%',
 
-  color: '#ffffff'
+  color: '#ffffff',
+  ':disabled': {
+    backgroundColor: 'gray'
+  }
 }))

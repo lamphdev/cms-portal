@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from '@emotion/styled'
 import ReactPlayer from 'react-player'
 import { ContentDisplay } from '../../config'
+import { pageBuilderContext } from '../..'
 
 interface IProps {
   data: ContentDisplay
@@ -9,13 +10,38 @@ interface IProps {
 
 export const ViettelCA = (props: IProps) => {
   const { data } = props
+  const { updateProps } = useContext(pageBuilderContext)
   return (
     <Div>
       <div className='title'>
-        <Title>{data.title}</Title>
+        <Title
+          contentEditable
+          onBlur={e => {
+            const text = (e.target as HTMLElement).innerText
+            if (data.id) {
+              updateProps(data.id, { title: text })
+            }
+          }}
+          suppressContentEditableWarning={true}
+        >
+          {data.title}
+        </Title>
       </div>
       <div className='subTitle'>
-        <SubTitle subTitle={data.content} />
+        <SubTitle>
+          <p
+            contentEditable
+            suppressContentEditableWarning={true}
+            onBlur={e => {
+              const text = e.currentTarget.innerText
+              if (data.id) {
+                updateProps(data.id, { content: text })
+              }
+            }}
+          >
+            {data.content}
+          </p>
+        </SubTitle>
       </div>
       <div className='content1'>
         <Content image={data.image} />
@@ -75,13 +101,15 @@ const Div = styled.div`
     }
   }
 `
-function SubTitle (props: any) {
-  return (
-    <div>
-      <p>{props.subTitle}</p>
-    </div>
-  )
-}
+// function SubTitle (props: any) {
+//   return (
+//     <div>
+//       <p>{props.subTitle}</p>
+//     </div>
+//   )
+// }
+
+const SubTitle = styled('div')(() => ({}))
 
 function Content (props: any) {
   return (
@@ -95,4 +123,3 @@ function Content (props: any) {
     />
   )
 }
-

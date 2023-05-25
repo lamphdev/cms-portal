@@ -1,0 +1,7 @@
+{
+    "validation": {
+        "required": "{{field}} không được để trống.",
+        "invalidFormat": "{{field}} không đúng định dạng.",
+        "rePasswordNotMatch": "Mật khẩu không trùng khớp"
+    }
+}

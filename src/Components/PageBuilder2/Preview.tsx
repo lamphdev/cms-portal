@@ -22,14 +22,13 @@ interface PreviewProps {
 export function Preview (props: PreviewProps) {
   const { components } = useContext(pageBuilderContext)
 
-  console.log(components);
   return (
     <Droppable droppableId='preview'>
       {(provided, snapshot) => (
         <StyledDropable
+          {...provided.droppableProps}
           className={props.className}
           ref={provided.innerRef}
-          {...provided.droppableProps}
           dragOver={snapshot.isDraggingOver}
         >
           {components.map(component => (

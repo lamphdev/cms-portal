@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-export const useCountDown = (seconds: number) => {
-  const [value, setValue] = useState(seconds)
+export const useCountDown = () => {
+  const [value, setValue] = useState(0)
   const [running, setRunning] = useState(false)
 
   useEffect(() => {
@@ -30,7 +30,8 @@ export const useCountDown = (seconds: number) => {
     setRunning(false)
   }
 
-  const start = () => {
+  const start = (seconds: number) => {
+    setValue(seconds);
     setRunning(true)
   }
 

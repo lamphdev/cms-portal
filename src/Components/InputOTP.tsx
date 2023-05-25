@@ -14,8 +14,11 @@ export const InputOTP = React.forwardRef<any, Props>((props, ref) => {
   const [value, setValue] = useState(defaultInput || '')
 
   const onKeyDown = (e: any) => {
-    e.preventDefault()
     const { key, keyCode } = e
+    if (key === 'Enter' || keyCode === 13) {
+      return;
+    }
+    e.preventDefault()
     if (key === 'Backspace' || keyCode === 8) {
       setValue(value.substring(0, value.length - 1))
       return

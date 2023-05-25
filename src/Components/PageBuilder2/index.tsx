@@ -1,6 +1,6 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { Preview } from './Preview'
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ToolBar } from './ToolBar'
 
 import { v4 as uuidV4 } from 'uuid'
@@ -14,29 +14,35 @@ interface PageBuilderState {
   selected?: string | null
   setSelected: (id: string) => void
   getSelectedComponent: () => ContentDisplay | null
-  showEditor: boolean
-  setShowEditor: (show: boolean) => void
   updateProps: (id: string, data: Partial<ContentDisplay>) => void
 }
 export const pageBuilderContext = React.createContext<PageBuilderState>({
   components: [],
-  setShowEditor: show => {},
   setComponents: list => {},
   selected: null,
   setSelected: id => {},
   getSelectedComponent: () => null,
-  showEditor: false,
   updateProps: (id, data) => {}
 })
+
+interface Props {
+  onChange?: (data: ContentDisplay[]) => void
+}
 
 /**
  * Page builder component
  * @returns
  */
-export function PageBuilder2 () {
+export function PageBuilder2 (props: Props) {
+  const { onChange } = props
   const [components, setComponents] = useState<ContentDisplay[]>([])
   const [selected, setSelected] = useState<string | null>(null)
-  const [showEditor, setShowEditor] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(components)
+    }
+  }, [onChange, components])
 
   /**
    * on drag end handler
@@ -104,20 +110,9 @@ export function PageBuilder2 () {
     }
   }
 
-  const EditerComponent = useMemo(() => {
-    const selectedComponent = getSelectedComponent()
-    if (!selectedComponent) {
-      return
-    }
-    const { type } = selectedComponent
-    return componentConfigs[type].editor
-  }, [selected])
-
   return (
     <pageBuilderContext.Provider
       value={{
-        showEditor,
-        setShowEditor,
         components,
         setComponents,
         selected,
@@ -132,11 +127,7 @@ export function PageBuilder2 () {
             <Preview components={components} />
           </Left>
           <Right>
-            {selected && showEditor && EditerComponent ? (
-              <EditerComponent />
-            ) : (
-              <StyledToolbar></StyledToolbar>
-            )}
+            <StyledToolbar></StyledToolbar>
           </Right>
         </Flex>
       </DragDropContext>

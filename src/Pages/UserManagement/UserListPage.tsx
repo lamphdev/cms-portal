@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, UserSearchForm } from '../../Components'
+import { Pagination, Table, UserSearchForm } from '../../Components'
 import { TH } from '../../Components/Table'
 
 export function UserListPage () {
@@ -45,6 +45,7 @@ export function UserListPage () {
             ))}
           </tbody>
         </Table>
+        <Pagination page={0} size={10} total={120} />
       </div>
     </>
   )

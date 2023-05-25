@@ -1,22 +1,26 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import {
   ManageIndexPage,
   PageDetail,
   UserListPage,
   UserDetailPage,
   PostListPage,
-  CreatePostPage
+  CreatePostPage,
+  LoginPage,
+  ForgotPasswordPage,
+  HomePage
 } from './Pages'
 import { ManageLayout } from './Layouts'
-import { LoginPage } from './Pages/Login'
-import { ForgotPasswordPage } from './Pages'
 import { PageList } from './Pages/PageManagement/PageList'
+import { ServiceList } from './Pages/ServiceList/ServiceList'
+import { ImageList } from './Pages/ImageManagement/ImageList'
+import { ImageDetail } from './Pages/ImageManagement/ImageDetail'
 
 export const router = createBrowserRouter([
   {
     path: '',
-    // element: <HomePage />
-    element: <Navigate to={'/manage'} />
+    element: <HomePage />
+    // element: <Navigate to={'/manage'} />
   },
   {
     path: 'login',
@@ -57,6 +61,18 @@ export const router = createBrowserRouter([
       {
         path: 'posts/create',
         element: <CreatePostPage />
+      },
+      {
+        path: 'service-list',
+        element: <ServiceList />
+      },
+      {
+        path: 'image-management',
+        element: <ImageList />
+      },
+      {
+        path: 'image-management/:id',
+        element: <ImageDetail />
       }
     ]
   }
