@@ -32,6 +32,7 @@ export const ImageDetailBlock = styled('div')(() => ({
                 paddingLeft: 12,
                 paddingRight: 12,
                 paddingBottom: 12,
+                paddingTop: 20,
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: 25,
