@@ -1,7 +1,7 @@
 import { CopyOutlined, DeleteOutlined, EditOutlined, UploadOutlined } from "@ant-design/icons"
 import { Input, Select, Upload } from "antd"
 import { RcFile } from "antd/es/upload/interface";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { InView, useInView } from "react-intersection-observer";
 import { CmsBreakcrumb } from "../../Components/Breakcrumb/CmsBreakcrumb";
@@ -15,6 +15,8 @@ const getBase64 = (file: RcFile): Promise<string> =>
         reader.onload = () => resolve(reader.result as string);
         reader.onerror = (error) => reject(error);
     });
+
+const mapLayzy: any = {}
 
 export const ImageDetail = () => {
     const [open, setOpen] = useState<boolean>(false);
@@ -31,7 +33,9 @@ export const ImageDetail = () => {
         { base64: 'https://s.pinimg.com/webapp/serve-my-drinks-263547ea.png' },
         { base64: 'https://s.pinimg.com/webapp/shop-bd0c8a04.png' },
         { base64: 'https://s.pinimg.com/webapp/deck-of-dreams-fb527bf1.png' },
-    ]);
+    ].map((el: any) => ({ ...el, inView: false })));
+
+    const [intersectionMap, setIntersectionMap] = useState<any>();
 
     const { ref: intersectionObserverRef, inView, entry } = useInView({
         threshold: 1
@@ -60,7 +64,7 @@ export const ImageDetail = () => {
 
     return <ImageDetailBlock ref={intersectionObserverRef}>
         <div>
-            <CmsBreakcrumb/>
+            <CmsBreakcrumb />
         </div>
         <div className="header">
             <span>CHI TIẾT THƯ MỤC</span>
@@ -86,23 +90,31 @@ export const ImageDetail = () => {
                     {
                         items.map((item: any, index: number) =>
                         (<InView key={index}>
-                            {({ ref, inView }) => (<div className="card" key={index} ref={ref}>
-                                <div className="action">
-                                    <ButtonActionImage onClick={() => setOpen(true)} color={'blue'} icon={<EditOutlined />} title={"edit"}></ButtonActionImage>
-                                    <ButtonActionImage onClick={() => coppyToClipboard('hello word')} color={'orange'} icon={<CopyOutlined />} title={"copy"}></ButtonActionImage>
-                                    <ButtonActionImage onClick={() => removeItem(item, index)} icon={<DeleteOutlined />} title={"delete"}></ButtonActionImage>
-                                </div>
-                                <div className='imagepreview'>
-                                    <img src={item.base64 && inView ? item.base64 : '/images/image-preview.svg'}
-                                        alt="/images/image-preview.svg"
-                                        width={75} height={75}
-                                    />
-                                </div>
-                                <div className="title">
-                                    Ảnh dịch vụ ABCXYZ
-                                </div>
-                                <div className="createDate">05/04/2023 2:06:00</div>
-                            </div>)}
+                            {({ ref, inView, entry }) => {
+                                if (mapLayzy[item.base64] === undefined) {
+                                    mapLayzy[item.base64] = false;
+                                }
+                                if (inView === true) {
+                                    mapLayzy[item.base64] = true;
+                                }
+                                return (<div className="card" key={index}>
+                                    <div className="action">
+                                        <ButtonActionImage onClick={() => setOpen(true)} color={'blue'} icon={<EditOutlined />} title={"edit"}></ButtonActionImage>
+                                        <ButtonActionImage onClick={() => coppyToClipboard('hello word')} color={'orange'} icon={<CopyOutlined />} title={"copy"}></ButtonActionImage>
+                                        <ButtonActionImage onClick={() => removeItem(item, index)} icon={<DeleteOutlined />} title={"delete"}></ButtonActionImage>
+                                    </div>
+                                    <div className='imagepreview'>
+                                        <img ref={ref} src={item.base64 && mapLayzy[item.base64] ? item.base64 : '/images/image-preview.svg'}
+                                            alt="/images/image-preview.svg"
+                                            width={75} height={75}
+                                        />
+                                    </div>
+                                    <div className="title">
+                                        Ảnh dịch vụ ABCXYZ
+                                    </div>
+                                    <div className="createDate">05/04/2023 2:06:00</div>
+                                </div>)
+                            }}
                         </InView>))
                     }
                 </div>

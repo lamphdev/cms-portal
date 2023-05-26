@@ -46,7 +46,6 @@ export function CmsBreakcrumb() {
     }, [])
 
     const itemRender = (route: any, params: any, routes: any[], paths: string[]) => {
-        console.log(route, params, routes, paths);
         return <Link to={route.href}>{route.title}</Link>
     }
     return <Breadcrumb
