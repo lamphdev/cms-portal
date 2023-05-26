@@ -1,6 +1,7 @@
 
 import { Breadcrumb, Typography } from "antd";
 import { useMemo } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { RouterConfig } from "../../router-config";
 
 const getTitle = (pathnameNestedRoutes: string[], idx: number, routerConfig: any[] = []): string => {
@@ -41,9 +42,15 @@ export function CmsBreakcrumb() {
                 title: getTextDefault(subpath, pathnameNestedRoutes, idx)
             }
         })
-        return [{ href: '/', title: 'Trang chủ', path: '/' }, ...list];
+        return [{ title: 'Trang chủ', href: '/manage', path: '/manage' }, ...list];
     }, [])
+
+    const itemRender = (route: any, params: any, routes: any[], paths: string[]) => {
+        console.log(route, params, routes, paths);
+        return <Link to={route.href}>{route.title}</Link>
+    }
     return <Breadcrumb
+        itemRender={itemRender}
         separator=">"
         items={items}
     />
