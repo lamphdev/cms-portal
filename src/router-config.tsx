@@ -17,6 +17,7 @@ import { ImageList } from './Pages/ImageManagement/ImageList'
 import { ImageDetail } from './Pages/ImageManagement/ImageDetail'
 import { FilterList } from './Pages/FilterManagement/FilterList'
 import { FilterListCreate } from './Pages/FilterManagement/FilterListCreate'
+import { BoxCustom } from './Components/BoxCustom/BoxCustom'
 export const RouterConfig = [
   {
     path: '',
@@ -28,6 +29,11 @@ export const RouterConfig = [
     path: 'login',
     name: 'Login',
     element: <LoginPage />
+  },
+  {
+    path: 'box',
+    name: 'Box',
+    element: <BoxCustom />
   },
   {
     path: 'forgot-password',
