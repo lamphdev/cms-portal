@@ -15,6 +15,8 @@ import { PageList } from './Pages/PageManagement/PageList'
 import { ServiceList } from './Pages/ServiceList/ServiceList'
 import { ImageList } from './Pages/ImageManagement/ImageList'
 import { ImageDetail } from './Pages/ImageManagement/ImageDetail'
+import { FilterList } from './Pages/FilterManagement/FilterList'
+import { FilterListCreate } from './Pages/FilterManagement/FilterListCreate'
 export const RouterConfig = [
   {
     path: '',
@@ -85,9 +87,26 @@ export const RouterConfig = [
           },
           {
             path: ':id',
-            name: 'chi tiet anh',
+            name: 'chi tiet ảnh',
             element: <ImageDetail />
           }
+        ]
+      },
+      {
+        path: 'filter-management',
+        name: 'Filter',
+        element: <Outlet/>,
+        children: [
+          {
+            path: '',
+            name: 'Quản lý filter',
+            element: <FilterList />
+          },
+          {
+            path: ':id',
+            name: 'Chi tiết',
+            element: <FilterListCreate />
+          },
         ]
       }
     ]
